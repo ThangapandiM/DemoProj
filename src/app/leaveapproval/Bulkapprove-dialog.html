@@ -1,0 +1,18 @@
+<form #approveform="ngForm">
+    <h1 mat-dialog-title>Leave Approval</h1>
+    <div mat-dialog-content>
+        <p>Enter your Comments</p>
+        <mat-form-field>
+            <input matInput [(ngModel)]="Remarks" #Reason="ngModel"  name="Reason" required>
+            <mat-error *ngIf="Reason.errors && (Reason.dirty || Reason.touched)" class="mat-error">
+                <mat-error [hidden]="!Reason.errors.required">
+                    * Required Field
+                </mat-error>
+                </mat-error>
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="false" (click)="onclose()">No Thanks</button>
+        <button mat-button [mat-dialog-close]="data.Reason" [disabled]="Remarks==''"  (click)="onNoClick()">Ok</button>
+    </div>
+    </form>

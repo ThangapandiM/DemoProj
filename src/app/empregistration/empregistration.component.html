@@ -1,0 +1,156 @@
+<div fxLayout fxLayout.xs="row" fxLayoutAlign="center">
+  <div mat-card-avatar (click)="FileInput.click()" matTooltip="Click Avatar to Change Image" class="LeaveType{{userService.Gender}}  mat-card-avatar profile-userpic img">
+    <img mat-card-image [src]="url" *ngIf="url" class="img-responsive">
+  </div>
+  <input type="file" id="avatar" (change)="readUrl($event)" style="display:none" #FileInput />
+</div>
+
+<div fxLayout fxLayout.xs="row" fxLayoutAlign="center">
+  <span style="font-size: 25px;"> {{employeeRegistration.EMPName}}</span>
+</div>
+
+<div class="Empregmainpanel" fxlayout="row" fxlayoutAlign="center" fxlayoutgap="0px" fxlayoutGap.xs="0px">
+  <div class="container" style="padding-bottom: 20px;" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px"
+    [style.display]="hideEMPName?'none':'flex' ">
+    <mat-form-field class="Full-Width">
+      <input type="text" matInput placeholder="Employee Name" [(ngModel)]="employeeRegistration.EMPName" required>
+      <mat-error *ngIf="EName.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="container" style="padding-bottom: 20px;" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px">
+    <mat-form-field class="Full-Width" hintLabel="Max 15 characters">
+      <input [type]="hide ? 'password' : 'text'" #input1 matInput placeholder="Password" [(ngModel)]="employeeRegistration.EMPPassword"
+        name="Pwrd" required minlength="4" maxlength="15" [formControl]="EPassword">
+      <mat-icon class="visibleeye" matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      <mat-hint align="end">{{input1.value?.length || 0}}/15</mat-hint>
+      <mat-error *ngIf="EPassword.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="container" style="padding-bottom: 20px;" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px">
+    <mat-form-field class="Full-Width">
+      <input type="number" matInput placeholder="Employee Code" [(ngModel)]="employeeRegistration.EMPCode" [disabled]="disableEMPCode"
+        required>
+      <mat-error *ngIf="ECode.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="container" style="padding-bottom: 20px;" fxLayout="center" fxLayoutAlign="center" fxLayoutGap="0px">
+    <mat-form-field class="Full-Width">
+      <input matInput type="email" placeholder="Employee Mailid" [(ngModel)]="employeeRegistration.EMPEmailID" name="Empmail"
+        [disabled]="disableEMPMailID" required>
+      <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="container" style="padding-bottom: 20px;" fxLayout="center" fxLayoutAlign="center" fxLayoutGap="0px">
+    <mat-form-field class="Full-Width" hintLabel="Min/Max 10 Numbers">
+      <input type="text" matInput #input placeholder="Employee Mobile" [(ngModel)]="employeeRegistration.EMPMobileNo"
+        (keypress)="keyPress($event)" minlength="10" maxlength="10" [formControl]="EMobile">
+      <mat-error *ngIf="EMobile.invalid">{{getErrorMessage()}}</mat-error>
+      <mat-hint align="end">{{input.value?.length || 0}}/10</mat-hint>
+    </mat-form-field>
+  </div>
+
+  <div class="container" style="padding-bottom: 20px;" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px">
+    <mat-form-field class="Full-Width">
+      <input matInput type="text" [owlDateTime]="EMPDOB" [owlDateTimeTrigger]="EMPDOB" [(ngModel)]="dateofbirth.value"
+        placeholder="DOB">
+      <owl-date-time [pickerMode]="'dialog'" [pickerType]="'calendar'" #EMPDOB></owl-date-time>
+    </mat-form-field>
+  </div>
+
+  <div class="container" style="padding-bottom: 20px;padding-left: 11px !important" fxLayout="row" fxLayoutAlign="left"
+    fxLayoutGap="0px">
+    <mat-radio-group (change)="onGenderChange($event)" [(ngModel)]="employeeRegistration.Gender">
+      <mat-radio-button *ngFor="let gen of empGender" [value]="gen.Value" required>
+        {{gen.Name}}
+      </mat-radio-button>
+      <mat-error *ngIf="(EmployeeGender.invalid || EmployeeGender.errors) && (EmployeeGender.dirty || EmployeeGender.touched)"
+        class="mat-error">
+        {{getErrorMessage()}}
+      </mat-error>
+    </mat-radio-group>
+
+  </div>
+
+  <div class="container" style="padding-bottom: 20px;" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px">
+    <mat-form-field class="Full-Width">
+      <mat-select style="width:100%" placeholder="Employee Type" [(ngModel)]="employeeRegistration.EMPTypeID"
+        [disabled]="disableEMPType" [formControl]="EmployeeType" required>
+        <mat-option required *ngFor="let EMPType of EmployeeTypes" [value]="EMPType.EMPTypeID">
+          {{EMPType.EMPType}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="EmployeeType.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- <div class="container" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px">
+    <mat-form-field class="Full-Width">
+      <mat-select style="width:100%" placeholder="Team Name" [(ngModel)]="employeeRegistration.EMPTeamID" [disabled]="disableEMPTeam"
+        [formControl]="EMPTeamName" required>
+        <mat-option required *ngFor="let EMPTeam of EmployeeTeams" [value]="EMPTeam.TeamID">
+          {{EMPTeam.TeamName}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="EMPTeamName.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div> -->
+
+  <div class="container" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px">
+    <mat-form-field class="Full-Width">
+      <mat-select style="width:100%" placeholder="Team Name" [(ngModel)]="employeeRegistration.EMPTeamID" [disabled]="disableEMPTeam"
+        [formControl]="EmployeeTeamName" required>
+        <mat-option *ngFor="let EMPTeam of EmployeeTeams" [value]="EMPTeam.TeamID">
+          {{EMPTeam.TeamName}}
+        </mat-option>
+      </mat-select>
+      <!-- <mat-error *ngIf="EmployeeTeamName.invalid"> -->
+      <mat-error *ngIf="(EmployeeTeamName.invalid || EmployeeTeamName.errors) && (EmployeeTeamName.dirty || EmployeeTeamName.touched)">
+
+        {{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="container" style="padding-bottom: 20px;" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px">
+    <mat-form-field class="Full-Width">
+      <input matInput type="text" [owlDateTime]="EMPDOJ" [owlDateTimeTrigger]="EMPDOJ" [(ngModel)]="dateofjoining.value"
+        placeholder="Date Of Joining" [formControl]="EMPDateOfJoin" >
+        <!-- [disabled]="disableEMPDOJ" -->
+      <owl-date-time [pickerMode]="'dialog'" [pickerType]="'calendar'" #EMPDOJ></owl-date-time>
+      <mat-error *ngIf="EMPDateOfJoin.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="container" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px" [style.display]="hideEMPRole?'none':'flex'">
+    <mat-form-field class="Full-Width">
+      <mat-select style="width:100%" placeholder="Role" [(ngModel)]="employeeRegistration.RoleID" [disabled]="disableEMPRole"
+        [formControl]="EMPRole">
+        <mat-option *ngFor="let role of EmployeeRoles" [value]="role.RoleID">
+          {{role.RoleType}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="EMPRole.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="container" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px" [style.display]="hideEMPVendor?'none':'flex'">
+    <mat-form-field class="Full-Width">
+      <mat-select style="width:100%" placeholder="Employer" [(ngModel)]="employeeRegistration.EmployerID" [disabled]="disableEMPEmployer"
+        [formControl]="EMPEmployer">
+        <mat-option *ngFor="let emplyer of EmployerLists" [value]="emplyer.EmployerID">
+          {{emplyer.Employer}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="EMPEmployer.invalid">{{getErrorMessage()}}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <mat-card-actions>
+    <div class="container-login100-form-btn">
+      <button mat-raised-button color="primary" (click)="SaveEmployee()">Submit</button>
+    </div>
+  </mat-card-actions>
+</div>

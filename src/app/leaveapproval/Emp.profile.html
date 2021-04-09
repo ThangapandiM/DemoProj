@@ -1,0 +1,22 @@
+<div fxLayout fxLayout.xs="row" fxLayoutAlign="center" >
+    <img mat-card-image [src]="EMPImgAttachment"  [style.display]="EMPImgAttachment=='' ? 'none':'block'"
+    class="img-responsive" style="height: 150px !important;display: block;border-radius: 100% !important;flex-shrink: 0 !important;width: 200px;"  *ngIf="EMPImgAttachment!=''||EMPImgAttachment!=undefined ">
+</div>
+<div fxLayout fxLayout.xs="row" fxLayoutAlign="center">
+    <span style="font-size: 25px;"> {{EMPName}}</span>
+</div>
+   <div class="container" style="padding-top: 20px;" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px">
+        <mat-form-field class="Full-Width">
+            <input type="text" matInput  [(ngModel)]="EMPType"
+                [disabled]="disableEMPCode" required>
+        </mat-form-field>
+    </div>
+    <div class="container" style="padding-top: 20px;" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px">
+        <mat-form-field class="Full-Width">
+            <input type="text" matInput placeholder="TeamName" [(ngModel)]="TeamName"
+                [disabled]="disableEMPCode" required>
+        </mat-form-field>
+    </div>
+<div mat-dialog-actions fxLayoutAlign="center">
+    <button mat-button [mat-dialog-close]="false" (click)="onclose()">Close</button>
+</div>

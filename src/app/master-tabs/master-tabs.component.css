@@ -1,0 +1,82 @@
+.tab-group {
+    border: 1px solid #e8e8e8;
+  }
+  
+  /* .demo-tab-content {
+    padding: 15px;
+  }
+
+  */
+  .example-h2
+  {
+      text-align: center;
+  }
+
+  .Buttonstyle
+{
+    width: 80%;
+    background-color:#d46a23; 
+}
+.mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus, .mat-tab-group.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus, .mat-tab-nav-bar.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus, .mat-tab-nav-bar.mat-primary .mat-tab-link:not(.mat-tab-disabled):focus
+{
+    background-color:#d46a23 !important; 
+    color: #00ADEE !important;
+}
+mat-tab-label mat-ripple ng-star-inserted mat-tab-label-active
+{
+    background-color:#fa924c !important; 
+}
+mat-ripple-element{
+    background-color: none !important;
+    /* color: yellow !important; */
+}
+mat-tab-label mat-ripple mat-tab-label-active ng-star-inserted
+{
+    background-color: #fa924c !important;
+    color:yellow !important;
+}
+.mat-tab-label-active {
+    color:yellow !important;
+    background-color: #fa924c !important;
+    
+} 
+docs-component-viewer-section-tab mat-tab-link ng-star-inserted mat-tab-label-active
+{
+    background-color: #fa924c !important;
+    color: yellow !important;
+}
+
+mat-tab-group mat-primary mat-tab-label:not(mat-tab-disabled):focus
+{
+    background-color: #fa924c !important;
+}
+ mat-card
+{
+  padding-top: 0px !important;
+   padding-left: 0px !important;
+   padding-right: 0px!important;
+  }
+
+  .logo {
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+  }
+  .tab
+  {
+    align-items: flex-end !important;
+    justify-content: flex-end !important;
+  }
+
+  .acer-theme .mat-card
+  {
+    background:#fafafa!important;
+       
+  }
+  .mat-card
+  {
+    background:#fafafa!important;
+  }
+  h2
+  {
+    color:#6d7067 !important;
+  }

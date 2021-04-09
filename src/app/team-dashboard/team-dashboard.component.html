@@ -1,0 +1,47 @@
+<div class="container">
+        <button mat-icon-button color="primary" (click)="backClicked()" matTooltip="Back" *ngIf=backbtnflag>
+                <mat-icon>arrow_back</mat-icon>
+        </button>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+
+        <h2>Resource-wise Leave Trend - {{CurrentYear}}</h2>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+        <mat-form-field class=".example-full-width">
+            <input value={{SelectedName}} matInput placeholder="Team Name" aria-label="EMPTeamName" [matAutocomplete]="auto" [formControl]="myControl">
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='TeamChange($event.option.value)'>
+                <mat-option *ngFor="let ETName of filteredOptions | async" [value]="ETName.TeamName">
+                    {{ETName.TeamName}}
+                </mat-option>
+            </mat-autocomplete>
+        </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+
+        <div id="Barchart" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px"></div>
+    </div>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+
+        <h2>Resource-wise Leave Trend - {{SelectedMonth}}</h2>
+    </div>
+    <div fxLayout="row" item-width="40px" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+
+
+        <mat-form-field class=".example-full-width">
+            <mat-select [(value)]="SelectedMonth" placeholder="" (selectionChange)="selectMonth()" [(ngModel)]="SelectedMonth">
+                <mat-option *ngFor="let Month of Months" [value]="Month.value">
+                    {{ Month.value }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+
+        <div id="MonthBarchart" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px"></div>
+
+    </div>
+
+</div>

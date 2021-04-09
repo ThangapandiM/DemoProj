@@ -1,0 +1,105 @@
+<div >
+  <div class="container" fxLayout fxLayout.xs="row" fxLayoutAlign="center" style="height:10vh;">
+    <div fxFlex="100%" style="background-color:#DDD; text-align:center">
+      <mat-toolbar style="background-color:white">
+        <img src="assets\images\AcerODC.png" style="width: 100px;" (click)="Goto();" />
+        <h2 style="padding-left:15px;">
+          <b>HRMS: Leave Management</b>
+        </h2>
+        <div class="item item-1" fxFlex="10%" fxFlexOrder="1" fxLayoutAlign="flex-end">
+        </div>
+        <div class="item item-2" fxFlex="70%" fxFlexOrder="2" fxLayoutAlign="flex-end">
+          <button mat-icon-button color="warn" (click)="Goto();" matTooltip="Home">
+            <mat-icon>home</mat-icon>
+          </button>
+          <mat-tab-group class="tab-group" (selectedTabChange)="onLinkClick($event)">
+            <mat-tab label="Dashboard" *ngIf="IsDashboardVisible">
+              <ng-template mat-tab-label>
+                <span>{{DashboadDispalyname}}</span>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="ODCLeadDashboard" *ngIf=IsOdcLeadDashboardVisible>
+              <ng-template mat-tab-label>
+                <span>{{ODCLeadDashboardDispalyname}}</span>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="HRdashboard" *ngIf=IsHrDashboardVisible>
+              <ng-template mat-tab-label>
+                <span>{{HRDashboardDispalyname}}</span>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="LeaveApproval" *ngIf=IsLeaveapprovalVisible>
+              <ng-template mat-tab-label>
+                <span>{{LeaveApprovalDispalyname}}</span>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="LeaveEntry" *ngIf=IsLeaveEntryVisible>
+              <ng-template mat-tab-label>
+                <span>{{LeaveEntryDispalyname}}</span>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="HoliDayWork" *ngIf=IsHolidayVisiable>
+              <ng-template mat-tab-label>
+                <span>{{HolidayDispalyname}}</span>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="LeaveDetail" *ngIf=IsDetailedGridVisible>
+              <ng-template mat-tab-label>
+                <span>{{DetailedGridDispalyname}}</span>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="EmployeeList" *ngIf=IsEmployeeListVisible>
+              <ng-template mat-tab-label>
+                <span>{{EmployeeListDispalyName}}</span>
+              </ng-template>
+            </mat-tab>
+            <mat-tab label="TimesheetEntry" *ngIf=IsTimsheetentry>
+              <ng-template mat-tab-label>
+                <span>Timesheet Entry</span>
+              </ng-template>
+            </mat-tab>
+            <!-- <mat-tab label="Reports" *ngIf=IsReports>
+              <ng-template mat-tab-label>
+                <span>Reports</span>
+              </ng-template>
+            </mat-tab> -->
+            <!-- <mat-tab label="TimesheetDetail" *ngIf=IsTimsheetDetail>
+                <ng-template mat-tab-label>
+                  <span>TimeSheetDetail</span>
+                </ng-template>
+              </mat-tab> -->
+          </mat-tab-group>
+          <mat-tab-group class="tab-group">
+          </mat-tab-group>
+        </div>
+        <div class="item item-3" fxFlex="5%" fxFlexOrder="3">
+          <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip={{userService.EMPName}} color="warn" class="profile-userpic img">
+            <mat-icon *ngIf="url=='' || url==null || url== undefined ">account_circle</mat-icon>
+            <img [src]="url" [style.display]="url =='' || url == undefined ? 'none':'block'" class="img-responsive">
+          </button>
+        </div>
+      </mat-toolbar>
+    </div>
+  </div>
+  <div class="container" fxLayout fxLayout.xs="row" fxLayoutAlign="center" style="height:75vh;">
+    <div class="maincontent" fxFlex="100%">
+      <mat-card style="padding-bottom:0px;">
+        <mat-card-content>
+          <div class="demo-tab-content">
+            <router-outlet *ngIf="showchildroute"></router-outlet>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <mat-menu #menu="matMenu" [overlapTrigger]="false">
+    <button mat-menu-item (click)="Profile()">
+      <mat-icon>face</mat-icon>
+      <span>Profile</span>
+    </button>
+    <button mat-menu-item (click)="SignOut()">
+      <mat-icon>power_settings_new</mat-icon>
+      <span>Log out</span>
+    </button>
+  </mat-menu>
+</div>

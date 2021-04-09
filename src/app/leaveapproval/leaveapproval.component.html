@@ -1,0 +1,399 @@
+
+<button mat-icon-button color="primary" (click)="backClicked()" matTooltip="Back" *ngIf=backbtnflag>
+    <mat-icon>arrow_back</mat-icon>
+</button>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+    <div fxFlex="20%" fxLayout="column" id="sidenadiv" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px"
+        class="sidenav">
+        <mat-card class="BGGradient Filtercard">
+            <div fxLayout="row" fxLayoutGap="20px" fxLayoutGap.xs="0px" *ngIf="OverrideApproval">
+                <mat-slide-toggle (change)="Togglechange()" [(ngModel)]="OverrideApprovalvalue" value=1 color="primary">
+                    Show All leaves</mat-slide-toggle>
+            </div>
+            <div fxLayout="row" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+
+                <div fxFlex="80%" fxLayout="column" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+                    <h3>Show Results for</h3>
+                </div>
+                <div fxFlex="20%" fxLayout="column" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+                    <button mat-icon-button color="primary" (click)="closeNav();" id="closebtn" style="display:none;"
+                        matTooltip="Hide">
+                        <mat-icon>backspace</mat-icon>
+                    </button>
+                </div>
+            </div>
+            <mat-accordion multi="true">
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Team
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div fxFlex="100%" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                        <div fxFlex="90%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                            <span style="font-size: 12px;" *ngFor="let ETName of TeamDetails">{{ETName.TeamName}}</span>
+                        </div>
+                        <div fxFlex="10%" fxLayout="column" fxLayoutAlign="flex-end" fxLayoutGap="0px"
+                            fxLayoutGap.xs="0px">
+                            <mat-checkbox color="primary" (change)="TNameChanges(ETName)"
+                                *ngFor="let ETName of TeamDetails"></mat-checkbox>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Employee
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <mat-form-field>
+                        <input matInput placeholder="Employee" aria-label="EMPName" [matAutocomplete]="auto"
+                            [formControl]="EmployeeName" (click)="$event.target.select();" [(ngModel)]="Empcodefliter">
+                        <mat-autocomplete #auto="matAutocomplete"
+                            (optionSelected)='EmployeeChange($event.option.value);'>
+                            <mat-option *ngFor="let EName of EmpNamefilteredOptions | async" [value]="EName.EMPName">
+                                {{EName.EMPName}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </mat-expansion-panel>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Leave Types
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div fxFlex="100%" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                        <div fxFlex="90%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                            <span style="font-size: 12px;"
+                                *ngFor="let LType of LeaveTypeDetails">{{LType.LeaveType}}</span>
+                        </div>
+                        <div fxFlex="10%" fxLayout="column" fxLayoutAlign="flex-end" fxLayoutGap="0px"
+                            fxLayoutGap.xs="0px">
+                            <mat-checkbox color="primary" (change)="LTypeChanges(LType)"
+                                *ngFor="let LType of LeaveTypeDetails"></mat-checkbox>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+                <mat-expansion-panel style="display: none;">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Status
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div fxFlex="100%" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                        <div fxFlex="90%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                            <span style="font-size: 12px;"
+                                *ngFor="let sType of StatusTypeDetails">{{sType.StatusName}}</span>
+                        </div>
+                        <div fxFlex="10%" fxLayout="column" fxLayoutAlign="flex-end" fxLayoutGap="0px"
+                            fxLayoutGap.xs="0px">
+                            <mat-checkbox color="primary" (change)="StatusChanges(sType)"
+                                *ngFor="let sType of StatusTypeDetails"></mat-checkbox>
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-card>
+    </div>
+    <div fxLayout="column" fxFlex="100%" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0px"
+        style="padding-left: 10px;padding-top: 10px;" id="detailgriddiv">
+        <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+            <div fxFlex="5%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                <button mat-mini-fab color="primary" (click)="openNav();" id="filterbtn" matTooltip="Show Filter">
+                    <mat-icon style="color:white;">list</mat-icon>
+                </button>
+            </div>
+            <div fxFlex="95%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                <div fxLayout="row" class="maxhght" fxFlex="100%" fxLayoutAlign="start start" fxLayout.xs="column" fxLayoutGap="0px"
+                    fxLayoutGap.xs="0px" style="max-height: 0% !important;">
+                    <div fxLayout="Coulumn" fxFlex="80%" fxLayoutAlign="ceter center" fxLayout.xs="column"
+                        fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                    </div>
+                    <div fxLayout="Coulumn" fxFlex="9%" fxLayoutAlign="ceter center" fxLayout.xs="column"
+                        fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                       
+                    </div>
+                    <div fxLayout="Coulumn" class="mrgnryt10" fxFlex="8%" fxLayoutAlign="ceter center" fxLayout.xs="column"
+                        fxLayoutGap="0px" fxLayoutGap.xs="0px" >
+                    </div>
+                    <div fxLayout="Coulumn" fxLayoutAlign="end center" fxLayout.xs="column" fxLayoutGap="0px"
+                        fxLayoutGap.xs="0px">
+                        <mat-slide-toggle color="primary" (change)="gridTogglechange()" [(ngModel)]="gridshow">
+                            Multi Leave Approval
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+                <div class="cards" *ngIf="Leavecard">
+
+                    <div class="card" *ngFor="let leave of LeaveDetails" fxLayoutAlign="start">
+                        <div class="card-content">
+                            <mat-card class="DetailCard">
+                                <mat-card-header>
+                                    <!-- <div fxFlex="10%" mat-card-avatar
+                                        class="LeaveType{{leave.Gender}} mat-card-avatar profile-userpic img">
+                                        <img mat-card-image [src]="leave.EMPImgAttachment"
+                                            [style.display]="leave.EMPImgAttachment =='' ? 'none':'block'"
+                                            *ngIf="leave.EMPImgAttachment !='' || leave.EMPImgAttachment !=undefined "
+                                            class="img-responsive">
+                                    </div> -->
+                                    <div fxFlex="70%" class="mat-card-header-text">
+                                        <mat-card-title>
+                                            <span (click)="openempprofDialog(leave)" class="cursorpointer"> {{leave.EMPName}}</span>
+                                        </mat-card-title>
+                                        <mat-card-subtitle>{{leave.TeamName}}</mat-card-subtitle>
+                                    </div>
+                                    <div fxFlex="10%" style="margin-right:10px">
+                                        <button mat-mini-fab matTooltip="Monthly Leave!" class="warnbtncolor"
+                                            style="margin-bottom:4px; margin-left:10px;">{{leave.LeaveTakenThisMonth}}
+                                        </button>
+                                        <button mat-mini-fab class="primarybtncolor" style="margin-left:10px;"
+                                            matTooltip="Total Leave - Current Year">{{leave.LeaveTakenThisYear}}</button>
+                                    </div>
+                                </mat-card-header>
+                                <mat-divider>
+                                </mat-divider>
+                                <mat-card-content>
+                                    <div fxFlex="100%" class="List">
+                                        <mat-list role="list" fxFlex="50%">
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.NoofdaysApplied>0 && leave.PermissionsTaken==0">No of Days
+                                                :</mat-list-item>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.PermissionsTaken>0 && leave.NoofdaysApplied==0">No of Hours
+                                                :</mat-list-item>
+                                            <mat-list-item *ngIf="leave.PermissionsTaken>0 && leave.NoofdaysApplied>0"
+                                                role="listitem">No of days
+                                                <br>Hours :</mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.NoofdaysApplied>0 && leave.PermissionsTaken==0">From Date :
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.PermissionsTaken>0 && leave.NoofdaysApplied==0">
+                                                Date :</mat-list-item>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.PermissionsTaken>0 && leave.NoofdaysApplied>0">From Date :
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.NoofdaysApplied>0 && leave.PermissionsTaken==0">To Date :
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.PermissionsTaken>0 && leave.NoofdaysApplied==0">To Date :
+                                            </mat-list-item>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.PermissionsTaken>0 && leave.NoofdaysApplied>0">
+                                                To Date :</mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item role="listitem" matTooltip="LeaveType">{{leave.LeaveType}}
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item style="overflow-wrap: break-word; width:195px"
+                                                [matTooltip]=leave.LeaveRemarks role="listitem"> Reason :
+                                                <br />{{leave.LeaveRemarks}}</mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item style="overflow-wrap: break-word; width:195px"
+                                                [matTooltip]=leave.LeaveRemarks role="listitem"
+                                                *ngIf="leave.AppliedLeaveRemarks!=''">
+                                                Holiday Reason:
+                                                <br />{{leave.AppliedLeaveRemarks}}</mat-list-item>
+                                            <mat-list-item *ngIf="leave.InlcudeForException">
+                                                <mat-checkbox [checked]="leave.IsException"
+                                                    (change)="ExceptionValue($event,leave)">Exception</mat-checkbox>
+                                            </mat-list-item>
+                                        </mat-list>
+                                        <mat-list role="list" fxFlex="50%">
+                                            <mat-list-item *ngIf="leave.NoofdaysApplied>0 && leave.PermissionsTaken==0"
+                                                role="listitem">{{leave.NoofdaysApplied}} Day(s).</mat-list-item>
+                                            <mat-list-item *ngIf="leave.PermissionsTaken>0 && leave.NoofdaysApplied==0"
+                                                role="listitem">{{leave.PermissionsTaken}} Hour(s).</mat-list-item>
+                                            <mat-list-item *ngIf="leave.PermissionsTaken>0 && leave.NoofdaysApplied>0"
+                                                role="listitem">{{leave.NoofdaysApplied}} Day(s)
+                                                <br>{{leave.PermissionsTaken}} Hour(s).
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.NoofdaysApplied>0 && leave.PermissionsTaken==0">
+                                                {{leave.LeaveFromDate}}</mat-list-item>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.PermissionsTaken>0 && leave.NoofdaysApplied==0">
+                                                {{leave.LeaveFromDate}}</mat-list-item>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.PermissionsTaken>0 && leave.NoofdaysApplied>0">
+                                                {{leave.LeaveFromDate}}</mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.NoofdaysApplied>0 && leave.PermissionsTaken==0">
+                                                {{leave.LeaveToDate}}</mat-list-item>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.PermissionsTaken>0 && leave.NoofdaysApplied==0">
+                                                {{leave.LeaveToDate}}</mat-list-item>
+                                            <mat-list-item role="listitem"
+                                                *ngIf="leave.PermissionsTaken>0 && leave.NoofdaysApplied>0">
+                                                {{leave.LeaveToDate}}</mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item role="listitem" style="padding-left:30%">
+                                                <button mat-mini-fab class="approval"
+                                                    [disabled]="leave.CanIApprove==0 ||btnflag"
+                                                    (click)="openApproveDialog(leave)" matTooltip="Approve">
+                                                </button>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item role="listitem" style="padding-left:30%">
+                                                <button mat-mini-fab class="reject"
+                                                    [disabled]="leave.CanIApprove==0 ||btnflag"
+                                                    (click)="openRejectDialog(leave)" matTooltip="Reject">
+                                                </button>
+                                            </mat-list-item>
+                                            <mat-divider></mat-divider>
+                                            <mat-list-item role="listitem" style="padding-left:30%">
+                                                <!-- MC File Attachment View -->
+                                                <button style="padding-left:30%" class="mat-attach-icon" #loginButton
+                                                    mat-icon-button color="primary"
+                                                    matTooltip="View Medical Certificate" (click)="DownloadFile(leave)"
+                                                    *ngIf="leave.FileName !=''  ">
+                                                    <mat-icon class="pad10 attachpopicon" mat-list-icon>cloud_download
+                                                    </mat-icon>
+                                                </button>
+                                                <!-- MC File Attachment View -->
+                                            </mat-list-item>
+                                        </mat-list>
+                                    </div>
+                                </mat-card-content>
+                            </mat-card>
+                        </div>
+                    </div>
+                </div>
+                <div fxFlex="95%"  fxLayout="column" >
+                    <mat-table #table [dataSource]="datasource" *ngIf="leavedetailgrid" style="margin-top: 15px !important;">
+                        <ng-container matColumnDef="select">
+                            <mat-header-cell *matHeaderCellDef>
+                                <mat-checkbox (change)="IsAllSelected($event)" [disabled]="Overallselect"[(ngModel)]="Checkedall"></mat-checkbox> Select All
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <mat-checkbox [checked]="row.SelectedRow" 
+                                    (change)="Lselectedrow(row)"></mat-checkbox>
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="EMPName">
+                            <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header>
+                                EMPName
+                            </mat-header-cell>
+                            <mat-cell class="mat-cell-TName" *matCellDef="let row">
+                                {{row.EMPName}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="TeamName">
+                            <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header>
+                                TeamName
+                            </mat-header-cell>
+                            <mat-cell class="mat-cell-TName" *matCellDef="let row">
+                                {{row.TeamName}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="LeaveType">
+                            <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header>
+                                LeaveType
+                            </mat-header-cell>
+                            <mat-cell class="mat-cell-TName" *matCellDef="let row">
+                                {{row.LeaveType}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="NoofdaysApplied">
+                            <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header>
+                                No of Days
+                            </mat-header-cell>
+                            <mat-cell class="mat-cell-TName" *matCellDef="let row">
+                                {{row.NoofdaysApplied}} Day(s)
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="PermissionsTaken">
+                            <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header>
+                                No of Hours
+                            </mat-header-cell>
+                            <mat-cell class="mat-cell-TName" *matCellDef="let row">
+                                {{row.PermissionsTaken}} Hour(s)
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="LeaveRemarks">
+                            <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header>
+                                Reason
+                            </mat-header-cell>
+                            <mat-cell class="mat-cell-TName" *matCellDef="let row">
+                                {{row.LeaveRemarks}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="LeaveFromDate">
+                            <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header>
+                                FromDate
+                            </mat-header-cell>
+                            <mat-cell class="mat-cell-TName" *matCellDef="let row">
+                                {{row.LeaveFromDate}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="LeaveToDate">
+                            <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header>
+                                LeaveToDate
+                            </mat-header-cell>
+                            <mat-cell class="mat-cell-TName" *matCellDef="let row">
+                                {{row.LeaveToDate}}
+                            </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="EmpRemarks">
+                                                                <mat-header-cell *matHeaderCellDef> Remarks </mat-header-cell>
+                                                                <mat-cell class="call" style="cursor:pointer;" *matCellDef="let row" (click)="openbulkApproveDialog(row)" >
+                                                                    {{row.EmpRemarks}}
+                                                            </mat-cell>
+                                                          </ng-container> 
+                       <!--  <ng-container matColumnDef="EmpRemarks">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>
+                               Remarks
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row; let i = index;">
+                                <div class="form-group" [class.text-danger]="userName.invalid">
+                                 <input required type="text" #userName="ngModel" class="form-control"
+                                        name="EmpRemarks-{{i}}" [(ngModel)]="row.EmpRemarks"> -->
+                                       <!--  <mat-form-field>
+                                            <input required type="text" matInput #userName="ngModel" class="form-control"
+                                            name="EmpRemarks-{{i}}" [(ngModel)]="row.EmpRemarks">
+                                          </mat-form-field>
+                                </div>
+                            </mat-cell>
+                        </ng-container>-->
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;">
+                        </mat-row>
+                    </mat-table>
+                    <div fxLayout="row" class="mrgnyt15 maxhgt30" fxFlex="100%" fxLayoutGap="20px"  [style.display]="paginateshow && HideBulkAppbutton?'inherit':'none'"
+ >
+                            <div fxLayout="column" fxFlex="10%"  >
+                            </div>
+                            <div fxLayout="column" fxFlex="53%"   >
+                                    <!-- <mat-paginator [pageSizeOptions]="[5,10,25]" ></mat-paginator> -->
+                                    <mat-paginator #paginator [length]="totalLength"
+                                    [pageSize]="limit"
+                                    [pageSizeOptions]="pageLimit"
+                                    (page)="changePage($event)">
+                     </mat-paginator>
+                            </div>
+                            <div fxLayout="column" fxFlex="15%"  fxlayoutalign="center center" class="mrgnyt15">
+                                  
+                                <button class="rejctButton" mat-button *ngIf="leavedetailgrid&&HideBulkAppbutton" (click)="Reject()">Rejected
+                                </button>
+                            </div>
+                            <div fxLayout="column" fxFlex="15%"  fxlayoutalign="center center" class="mrgnyt15">
+                                    <button class="rejctButton" mat-button *ngIf="leavedetailgrid&&HideBulkAppbutton" (click)="Approve()">Approve
+                                        </button>
+                                </div>
+
+                           
+                      
+                        </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,153 @@
+<mat-card>
+  <div class="search-div">
+    <button mat-mini-fab color="primary" (click)="onCreate()">
+      <mat-icon style="color:white;">add</mat-icon>
+    </button>
+    <mat-form-field class="search-form-field" floatLabel="never">
+      <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()">
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <!-- 
+    <mat-form-field>
+      <input matInput [ngModel]="globalFilter" placeholder="Search" (ngModelChange)="applyFilter($event)" autocomplete="off">
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="globalFilter" (click)="onSearchClear()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field> -->
+  </div>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+    <div fxLayout="column" fxFlex="100%" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0px" style="padding-left: 10px;padding-top: 10px;"
+      id="detailgriddiv">
+
+      <div fxFlex="100%" fxLayout="column" class="example-container mat-elevation-z8 scrollbar">
+        <mat-table #tblEmployeeList [dataSource]="employeeList" matSort>
+
+          <ng-container matColumnDef="SNo">
+            <mat-header-cell *matHeaderCellDef>
+              SNo
+            </mat-header-cell>
+            <mat-cell *matCellDef="let element; let i = index;">{{i+1}}</mat-cell>
+          </ng-container>
+
+          <!-- <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td> -->
+          <!-- <ng-container matColumnDef="EMPCode">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Code
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.EMPCode}}
+            </mat-cell>
+          </ng-container> -->
+
+          <ng-container matColumnDef="EMPName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Name
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.EMPName}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Gender" mat-sort-header>
+            <mat-header-cell *matHeaderCellDef>
+              Gender
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.Gender}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="TeamName">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Team
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.TeamName}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="EMPType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Type
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.EMPType}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="EMPMobileNo">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Mobile No
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.EMPMobileNo}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="EMPEmailID">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Email ID
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.EMPEmailID}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="EMPDOB">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              DOB
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.EMPDOB}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="RoleType">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Role
+            </mat-header-cell>
+            <mat-cell *matCellDef="let row">
+              {{row.RoleType}}
+            </mat-cell>
+          </ng-container>
+
+          <ng-container matColumnDef="Actions">
+            <mat-header-cell *matHeaderCellDef mat-sort-header>
+              Actions
+            </mat-header-cell>
+            <md-cell *matCellDef="let row">
+              <button mat-icon-button (click)="openEditDialog(row)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button>
+                <mat-icon>delete_forever</mat-icon>
+              </button>
+            </md-cell>
+          </ng-container>
+          <!-- <ng-container matColumnDef="loading">
+      <mat-footer-cell *matFooterCellDef colspan="9">
+        Loading data...
+      </mat-footer-cell>
+    </ng-container>
+    <ng-container matColumnDef="noData">
+      <mat-footer-cell *matFooterCellDef colspan="9">
+        No data.
+      </mat-footer-cell>
+    </ng-container> -->
+
+          <!-- <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr> -->
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+          <!-- <mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide':employeeList !=null}"></mat-footer-row>
+    <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide':!(employeeList !=null && employeeList.data.length == 0)}"></mat-footer-row> -->
+        </mat-table>
+        <mat-paginator #paginator [pageSizeOptions]="[ 10, 25, 100]"></mat-paginator>
+      </div>
+    </div>
+  </div>
+</mat-card>

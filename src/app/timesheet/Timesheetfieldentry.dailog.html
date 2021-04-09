@@ -1,0 +1,120 @@
+<div fxLayout="Column" fxFlex="100%" class="bgcolor" fxLayoutGap="10px">
+        <div fxFlex="100%" fxLayout="row" fxLayoutGap="10px">
+                <div fxLayout="Column" fxFlex="90%" class="bgcolor" fxLayoutGap="10px">
+                        <h3 color="primary">TimeSheet Entry</h3>
+                </div>
+                <div fxLayout="Column" fxFlex="5%" class="bgcolor" fxLayoutGap="10px">
+                                <mat-icon color="primary" style="font-size: 45px !important;cursor: pointer;" (click)="onclose()" >
+                                        highlight_off
+                                </mat-icon>
+                              
+                </div>
+            </div>
+<div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px">
+   
+    <div fxLayout="Column" fxFlex="50%" class="bgcolor" fxLayoutGap="10px">
+            <mat-form-field class="width60" style="font-size: 12px !important;">
+                    <input matInput placeholder="From" [(ngModel)]="Fromtime" [readonly]="true">
+                </mat-form-field>
+        </div>
+        <div fxLayout="Column" fxFlex="50%" class="bgcolor" fxLayoutGap="10px">
+                <mat-form-field class="width60" style="font-size: 12px !important;">
+                        <input matInput placeholder="To" [(ngModel)]="Totime" [readonly]="true">
+                     
+                    </mat-form-field>
+            </div>
+
+</div>
+<div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px">
+   
+        <!-- <div fxLayout="Column" fxFlex="50%" class="bgcolor" fxLayoutGap="10px">
+             
+            </div> -->
+    
+            <div fxLayout="Column" fxFlex="100%" class="bgcolor" fxLayoutGap="10px">
+                    <mat-form-field class="width60" style="font-size: 12px !important;">
+                            <input type="text" placeholder="Project" aria-label="Assignee" matInput
+                                [formControl]="ProjectDetail" [matAutocomplete]="auto" required>
+                            <mat-autocomplete #auto="matAutocomplete">
+                                <mat-option (onSelectionChange)="changeproject(option)"
+                                    *ngFor="let option of projectcollectionfilter | async" [value]="option.Description">
+                                    {{option.Description}}
+                                </mat-option>
+                            </mat-autocomplete>
+                            <mat-error>Choose the project</mat-error>
+                        </mat-form-field>
+                </div>
+    
+    </div>
+    <div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px">
+            <div fxLayout="Column" fxFlex="50%" class="bgcolor" fxLayoutGap="10px ">
+                    <mat-form-field class="width60" style="font-size: 12px !important;">
+                            <input matInput placeholder="PBINO/Tracker" [(ngModel)]="PBINO" required>
+                            <mat-error>Must Enter the value</mat-error>
+                        </mat-form-field>   
+            </div>
+                <div fxLayout="Column" fxFlex="50%" class="bgcolor" fxLayoutGap="10px">
+                        <mat-form-field class="width60" style="font-size: 12px !important;">
+                                <input type="text" placeholder="Module" aria-label="Assignee" matInput
+                                    [formControl]="ModuleDetail" [matAutocomplete]="Mauto" required>
+                                <mat-autocomplete #Mauto="matAutocomplete">
+                                    <mat-option (onSelectionChange)="changemodule(option)"
+                                        *ngFor="let option of modulecollectionfilter | async"
+                                        [value]="option.Description">
+                                        {{option.Description}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-error>Choose the Module</mat-error>
+                            </mat-form-field>
+                    </div>
+        </div>
+        <div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px">
+                <div fxLayout="Column" fxFlex="50%" class="bgcolor" fxLayoutGap="10px">
+                        <mat-form-field class="width60" style="font-size: 12px !important;">
+                                <input type="text" placeholder="Region" aria-label="Assignee" matInput
+                                    [formControl]="RegionDetail" [matAutocomplete]="Rauto" required>
+                                <mat-autocomplete #Rauto="matAutocomplete">
+                                    <mat-option (onSelectionChange)="changeregion(option)"
+                                        *ngFor="let option of Regioncollectionfilter | async" [value]="option.Description">
+                                        {{option.Description}}
+                                    </mat-option>
+                                </mat-autocomplete>
+                                <mat-error>Choose the region</mat-error>
+                            </mat-form-field>
+                    </div>
+            
+                    <div fxLayout="Column" fxFlex="50%" class="bgcolor" fxLayoutGap="10px">
+                            <mat-form-field class="width60" style="font-size: 12px !important;">
+                                    <input type="text" placeholder="Activity" aria-label="Assignee" matInput
+                                        [formControl]="ActivityDetail" [matAutocomplete]="Aauto" required>
+                                    <mat-autocomplete #Aauto="matAutocomplete">
+                                        <mat-option (onSelectionChange)="changeActivity(option)"
+                                            *ngFor="let option of Activitycollectionfilter | async"
+                                            [value]="option.Description">
+                                            {{option.Description}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <mat-error>Must Enter the value</mat-error>
+                                </mat-form-field>
+                        </div>
+            </div>
+            <div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px">
+
+                    <mat-form-field appearance="outline" style="width: 100%;font-size: 12px !important;" >
+                            <mat-label>Summary</mat-label>
+                            <input matInput [(ngModel)]="Summary" required>
+                            <mat-icon matSuffix color="primary">create</mat-icon>
+                        </mat-form-field>
+            </div>
+            <div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px">
+                    <div fxLayout="Column" fxFlex="30%" class="bgcolor" fxLayoutGap="10px"></div>
+                    <div fxLayout="Column" fxFlex="30%" class="bgcolor" fxLayoutGap="10px">
+                            <button mat-raised-button  (click)="Submit()" style="background-color:#80c343 ;color: white;">Submit</button>
+                    </div>
+                    <div fxLayout="Column" fxFlex="30%" class="bgcolor" fxLayoutGap="10px">
+                            
+                    </div>
+
+            </div>
+
+</div>

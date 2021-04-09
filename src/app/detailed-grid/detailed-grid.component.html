@@ -1,0 +1,217 @@
+<mat-card>
+  <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+    <div fxFlex="20%" fxLayout="column" id="sidenadiv" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px" class="sidenav">
+      <mat-card class="BGGradient">
+        <div fxLayout="row" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+          <div fxFlex="80%" fxLayout="column" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+            <h3>Show Results for</h3>
+          </div>
+          <div fxFlex="20%" fxLayout="column" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+            <button mat-icon-button color="primary" (click)="closeNav();" id="closebtn" style="display:none;" matTooltip="Hide">
+              <mat-icon>backspace</mat-icon>
+            </button>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+          <mat-form-field style="padding-top: 5px;padding-left: 10px">
+            <input matInput type="text" [owlDateTime]="FDate" (blur)="OnFromDateChange()" (ngModelChange)="OnFromDateChange();OnFromDtChangeClear($event)" [owlDateTimeTrigger]="FDate" placeholder="From Date" [(ngModel)]="FromDate">
+            <!-- (ngModelChange)="OnFromdateChange()" -->
+            <owl-date-time [pickerMode]="'dialog'" [pickerType]="'calendar'" #FDate></owl-date-time>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+          <mat-form-field style="padding-left: 10px">
+            <input matInput [min]="FromDateValidate"  type="text" [owlDateTime]="TDate" [owlDateTimeTrigger]="TDate" placeholder="To Date" [(ngModel)]="ToDate">
+            <!-- (ngModelChange)="OnTodateChange()" -->
+            <owl-date-time [pickerMode]="'dialog'" [pickerType]="'calendar'" #TDate></owl-date-time>
+          </mat-form-field>
+          <button mat-icon-button color="primary" (click)="GoSearch();" matTooltip="Search">
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+        <mat-accordion multi="true">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Team
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div fxFlex="100%" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+              <div fxFlex="90%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                <span style="font-size: 12px;" *ngFor="let ETName of TeamDetails">{{ETName.TeamName}}</span>
+              </div>
+              <div fxFlex="10%" fxLayout="column" fxLayoutAlign="flex-end" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                <mat-checkbox color="primary" (change)="TNameChanges(ETName)" *ngFor="let ETName of TeamDetails"></mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Employee
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <mat-form-field>
+              <input matInput placeholder="Employee" aria-label="EMPName" [matAutocomplete]="auto" [formControl]="EmployeeName" (click)="$event.target.select();"
+                [(ngModel)]="Empcodefliter">
+              <mat-autocomplete #auto="matAutocomplete" (optionSelected)='EmployeeChange($event.option.value);'>
+                <mat-option *ngFor="let EName of EmpNamefilteredOptions | async" [value]="EName.EMPName">
+                  {{EName.EMPName}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Leave Types
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div fxFlex="100%" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+              <div fxFlex="90%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                <span style="font-size: 12px;" *ngFor="let LType of LeaveTypeDetails">{{LType.LeaveType}}</span>
+              </div>
+              <div fxFlex="10%" fxLayout="column" fxLayoutAlign="flex-end" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                <mat-checkbox color="primary" (change)="LTypeChanges(LType)" *ngFor="let LType of LeaveTypeDetails"></mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Status
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div fxFlex="100%" fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+              <div fxFlex="90%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                <span style="font-size: 12px;" *ngFor="let sType of StatusTypeDetails">{{sType.StatusName}}</span>
+              </div>
+              <div fxFlex="10%" fxLayout="column" fxLayoutAlign="flex-end" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                <mat-checkbox color="primary" (change)="StatusChanges(sType)" *ngFor="let sType of StatusTypeDetails"></mat-checkbox>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </mat-card>
+    </div>
+    <div fxLayout="column" fxFlex="100%" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0px" style="padding-left: 10px;padding-top: 10px;"
+      id="detailgriddiv">
+      <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+        <div fxFlex="5%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+          <button mat-mini-fab color="primary" (click)="openNav();" id="filterbtn" matTooltip="Show Filter">
+            <mat-icon style="color:white;">list</mat-icon>
+          </button>
+        </div>
+        <div fxFlex="95%" fxLayout="column" class="example-container mat-elevation-z8">
+          <mat-table #table [dataSource]="datasource" matSort>
+            <!-- Team Name Column -->
+            <ng-container matColumnDef="TName">
+              <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header>
+                Team
+                <br/>Employee
+              </mat-header-cell>
+              <mat-cell class="mat-cell-TName" *matCellDef="let row">
+                {{row.TeamName}}
+                <br/> {{row.EMPName}}
+              </mat-cell>
+            </ng-container>
+            <!-- Date From Column -->
+            <ng-container matColumnDef="DFrom">
+              <mat-header-cell class="mat-header-DFrom" *matHeaderCellDef mat-sort-header>
+                From Date
+                <br/> To Date
+              </mat-header-cell>
+              <mat-cell class="mat-cell-DFrom" *matCellDef="let row">
+                {{row.LeaveFromDate}}
+                <br/> {{row.LeaveToDate}}
+              </mat-cell>
+            </ng-container>
+            <!-- Leave Type Column -->
+            <ng-container matColumnDef="LType">
+              <mat-header-cell class="mat-header-LType" *matHeaderCellDef mat-sort-header>
+                Leave Type
+                <br> Days &nbsp;| &nbsp;Hours
+              </mat-header-cell>
+              <mat-cell class="mat-cell-LType" *matCellDef="let row">
+                {{row.LeaveType}}
+                <br> 
+                {{row.NoofdaysApplied}} days &nbsp;|&nbsp;{{row.PermissionsTaken}} hrs
+              </mat-cell>
+            </ng-container>
+
+            <!--Leave Type Column -->
+            <!-- <ng-container matColumnDef="LType">
+              <mat-header-cell class="mat-header-LveType" *matHeaderCellDef mat-sort-header>Leave<br>Type</mat-header-cell>
+              <mat-cell class="mat-cell-LveType" *matCellDef="let row"> {{row.LeaveType}} </mat-cell>
+            </ng-container> -->
+
+            <!-- Leave Days Column -->
+            <!-- <ng-container matColumnDef="LDays">
+              <mat-header-cell class="mat-header-LDays" *matHeaderCellDef mat-sort-header matTooltip="Leave Days">Leave<br>Days</mat-header-cell>
+              <mat-cell class="mat-cell-LDays" *matCellDef="let row"> {{row.NoofdaysApplied}} </mat-cell>
+            </ng-container> -->
+
+            <!-- Leave Hours Column -->
+            <!-- <ng-container matColumnDef="LHours">
+              <mat-header-cell class="mat-header-LHours" *matHeaderCellDef mat-sort-header>Leave<br>Hours</mat-header-cell>
+              <mat-cell class="mat-cell-LHours" *matCellDef="let row"> {{row.PermissionsTaken}} </mat-cell>
+            </ng-container> -->
+
+            <!-- Reason Column -->
+            <ng-container matColumnDef="LReason">
+              <mat-header-cell class="mat-header-LReason" *matHeaderCellDef mat-sort-header>Reason</mat-header-cell>
+              <mat-cell class="mat-cell-LReason" *matCellDef="let row"> {{row.LeaveRemarks}} </mat-cell>
+            </ng-container>
+
+            <!-- CreatedOn Column -->
+            <ng-container matColumnDef="LApprovedBy">
+              <mat-header-cell class="mat-header-LApprovedBy" *matHeaderCellDef mat-sort-header> Approved By
+                <br/>Date </mat-header-cell>
+              <mat-cell class="mat-cell-LApprovedBy" *matCellDef="let row">{{row.LeaveApprovedBy}}
+                <br/> {{row.LeaveApprovedDate}} </mat-cell>
+            </ng-container>
+
+            <!-- Approved By Column -->
+            <ng-container matColumnDef="TotalYear">
+              <mat-header-cell class="mat-header-TotalYear" *matHeaderCellDef mat-sort-header> YTD Leave </mat-header-cell>
+              <mat-cell class="mat-cell-TotalYear" *matCellDef="let row"> {{row.LeaveTakenThisYear}} </mat-cell>
+            </ng-container>
+
+            <!-- Status Column -->
+            <ng-container matColumnDef="LStatus">
+              <mat-header-cell class="mat-header-LStatus" *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+              <mat-cell class="mat-cell-LStatus" *matCellDef="let row"> {{row.LeaveStatus}} </mat-cell>
+            </ng-container>
+
+            <!-- EDit Column -->
+            <ng-container matColumnDef="LDelete">
+              <mat-header-cell class="mat-header-LDelete" *matHeaderCellDef mat-sort-header>Cancel</mat-header-cell>
+              <mat-cell class="mat-cell-LDelete" *matCellDef="let row">
+                <button mat-icon-button *ngIf="Cancelbtn(row)" (click)="openCancelDialog(row)" matTooltip="Cancel Leave!">
+                  <mat-icon>delete_forever</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;">
+            </mat-row>
+          </mat-table>
+          <!-- <mat-paginator #paginator 
+          [length]="totalLength"
+          [pageIndex]="pageIndex"
+          [pageSize]="pageSize"
+          [pageSizeOptions]="[5, 10, 25, 100]"
+          (page)="pageEvent = getServerData($event)"
+          [showFirstLastButtons]="true">
+        </mat-paginator> -->
+        <mat-paginator #paginator [length]="totalLength"
+               [pageSize]="limit"
+               [pageSizeOptions]="pageLimit"
+               (page)="changePage($event)">
+</mat-paginator>
+</div>
+      </div>
+    </div>
+  </div>
+  <!-- </div> -->
+</mat-card>

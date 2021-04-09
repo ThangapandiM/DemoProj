@@ -1,0 +1,31 @@
+<h1 mat-dialog-title>Forget Card</h1>
+<mat-dialog-content>
+    <div fxLayout="row" fxLayoutAlign="left" fxLayoutGap="0px">
+        <mat-form-field class="Full-Width">
+            <input matInput placeholder="EmpCode" [(ngModel)]="data.cardDetail.EMPCODE" disabled>
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="left" fxLayoutGap="0px">
+        <mat-form-field class="Full-Width">
+            <input matInput type="number" placeholder="Card No" [(ngModel)]="data.cardDetail.CardID">
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="left" fxLayoutGap="0px">
+        <mat-form-field class="Full-Width">
+            <input matInput placeholder="Remarks" [(ngModel)]="data.cardDetail.Remarks">
+        </mat-form-field>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="left" fxLayoutGap="0px">
+        <mat-form-field style="width: 280px">
+            <input matInput  [owlDateTime]="ForgetDate" [owlDateTimeTrigger]="ForgetDate" [(ngModel)]="data.cardDetail.Date"
+                        placeholder="Date">
+                    <owl-date-time [pickerMode]="'dialog'" [pickerType]="'calendar'" #ForgetDate></owl-date-time>
+        </mat-form-field>
+    </div>
+</mat-dialog-content>
+<div fxLayout="row" fxLayoutAlign="left" fxLayoutGap="0px">
+    <mat-dialog-actions>
+        <button mat-raised-button color="accent" [mat-dialog-close]="false">No Thanks</button>
+        <button mat-raised-button color="primary" [mat-dialog-close]="data.cardDetail" cdkFocusInitial>save</button>
+    </mat-dialog-actions>
+</div>

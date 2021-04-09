@@ -1,0 +1,44 @@
+<div class="container" fxLayout fxLayout.xs="row" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0" fxLayout.md="row">
+    <div class="item item-1" fxFlex="100%" fxFlexOrder="">
+        <mat-toolbar style="background-color:white">
+            <img src="assets\images\AcerODC.png" style="width:100px;" />
+        </mat-toolbar>
+    </div>
+</div>
+<form (submit)="EnterKeyPress($event)">
+<div class="container" fxLayout fxLayout.xs="row" fxLayoutGap="10px" fxLayoutGap.xs="0" fxLayout.lg="row">
+    <div Class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <span class="login100-form-title p-b-26">
+                              Sign In
+                        </span>
+                <span class="login100-form-title p-b-26">
+                              <img src="assets\images\Loginimg.png" style="width:120px;" />
+                        </span>
+                <div class="wrap-input100 validate-input">
+
+                    <mat-form-field class="full-width">
+                        <input matInput #input [(ngModel)]="Formdata.UserName" placeholder="Email" [formControl]="email" required>
+                        <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="wrap-input100 validate-input">
+                    <mat-form-field class="full-width" hintLabel="Max 15 characters">
+                        <input [type]="hide ? 'password' : 'text'" #input1 matInput placeholder="Password" [(ngModel)]="Formdata.Password" [formControl]="password" name="Upwrd" required minlength="4" maxlength="15">
+                        <mat-icon class="visibleeye" matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                        <mat-hint align="end">{{input1.value?.length || 0}}/15</mat-hint>
+                        <mat-error *ngIf="password.invalid">{{getpasswordErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button mat-raised-button color="primary" style="color:white" (click)="GetLoginInfo()">Sign In</button>
+                </div>
+                <div>
+                    <input matInput value={{LoginErrorMessage}} class="errorlbl" *ngIf=IsErrorVisible>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>

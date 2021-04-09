@@ -1,0 +1,276 @@
+/* Card Based Layout - Base styles */
+/*comp off leave*/
+.LeaveTypeM{
+  background-image: url("/assets/images/Male.png"); 
+  background-size: cover !important;
+  max-width: 5rem !important;
+  max-height: 10rem !important;
+  /* position: absolute !important; */
+  width: -webkit-fill-available !important; 
+  bottom: 0 !important;
+  left: 2rem !important;
+  top: 0.2rem !important;
+}
+.LeaveTypeF{
+  background-image: url("/assets/images/Female.png"); 
+  background-size: cover !important;
+  max-width: 5rem !important;
+  max-height: 10rem !important;
+  /* position: absolute !important; */
+  width: -webkit-fill-available !important; 
+  bottom: 0 !important;
+  left: 2rem !important;
+  top: 0.2rem !important;
+}
+.mat-cell, .mat-header-cell {
+  flex: 1;
+  overflow: unset;
+  word-wrap: break-word;
+}
+
+.card-content {
+ padding: 1.4em;
+}
+.mat-card-avatar {
+  height: 100px !important;
+  width: 100px !important;
+  border-radius: 100% !important;
+  flex-shrink: 0 !important;
+
+}
+.rejctButton{
+  background-color: #66bb6a;
+  color: white;
+  height: 35px;
+}
+.mat-header-row{
+  position: sticky !important;
+}
+.Bgcolour{
+  background-color: white;
+}
+.profile-userpic img {
+  float: none;
+  margin: 0 auto;
+  /* width: 50%;
+  height: 50%; */
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 50%!important;
+  -moz-border-radius: 50%!important;
+  border-radius: 50%!important;
+}
+
+.imgsizeavatar{
+  height: 100px !important;
+  width: 100px !important;
+  border-radius: 100% !important;
+  flex-shrink: 0 !important;
+}
+.mrgntop1{
+  margin-top: 1% !important;
+  display: unset;
+}
+/* Flexbox stuff */
+.mat-form-field-underline {
+  position: absolute;
+  /* height: 1px; */
+  width: 100%;
+}
+mat-table {
+  overflow: auto;
+max-height: 490px !important;
+  
+}
+.maxhght{
+  max-height: 500px !important;
+}
+.mrgnyt15{
+  padding-top: 15px !important;
+  background-color: white;
+}
+
+.maxhght{
+  max-height: 1% !important;
+}
+.maxhgt30{
+  max-height: 18% !important;
+}
+.mrgnryt10{
+  margin-right: 10px !important;
+}
+.call:hover{
+  background-color: #66bb6a;
+}
+@media screen and (min-width: 40em) {
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        border-radius: 50%;
+    }
+
+    .card {
+        flex: 0 1 calc(50% - 1em);
+      }
+    .card button 
+    {
+      margin-left: 15px;
+    }
+}
+
+@media screen and (min-width: 60em) {
+
+.card {
+    flex: 0 1 calc(25% - 1em);
+}
+.card button 
+{
+margin-left: 10px;
+}
+
+}
+
+.mat-card-header-text{
+  width: auto !important;
+  margin-right: 0px !important;;
+  margin-left: 0px !important;;
+}
+.mat-card-header-text {
+  margin: 0;
+  width: 80px !important;
+  text-align:start !important;
+  /* padding-left: 8px !important;  */
+   margin-top: 10px !important;
+}
+.DetailCard{
+  border-radius: 20px !important;
+  border: 1px solid !important;
+  border-color: #bdbdbd !important;
+  min-height: 300px !important;
+  max-height: 400px !important;
+  min-width: 85% !important;
+  max-width: 85% !important; 
+}
+.Filtercard
+{
+  border:0px solid !important;
+  border-radius: 0px !important;
+  padding-top: 6px !important;
+   min-height: 300px !important;
+  max-height: 500px !important;
+}
+mat-divider 
+{
+   margin-top: 10px !important;
+  margin-bottom: 10px !important;
+  position: relative !important;
+}
+mat-card-actions
+{
+  text-align: end !important;
+}
+.List
+{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+ }
+ mat-list mat-divider 
+
+ {
+  margin-top: 2px !important;
+  margin-bottom: 2px !important;
+  position: relative !important;
+ }
+  .dark-theme mat-card 
+  {
+    color:white !important;
+  }
+  :ng-deep .mat-list .mat-list-item .mat-line{
+    word-wrap: break-word  !important;
+
+   white-space: pre-wrap  !important;
+}
+.primarybtncolor
+{
+  color: #66bb6a;
+  background-color: #66bb6a !important;
+}
+.warnbtncolor
+{
+ color: #a5d6a7;
+ background-color: #a5d6a7 !important;
+ }
+.reject
+{
+  background-image: url("/assets/images/rejected.png"); 
+  background-color:white !important;
+  background-size: cover !important;
+  max-width: 6rem !important;
+  max-height: 10rem !important;
+}
+
+.approval
+{
+  background-image: url("/assets/images/approved.png"); 
+  background-color:white !important;
+  background-size: cover !important;
+  max-width: 6rem !important;
+  max-height: 10rem !important;
+}
+
+.cursorpointer{
+  cursor: pointer;
+}
+.mat-mini-fab:not([class*=mat-elevation-z])
+{
+  box-shadow:none !important;
+}
+::ng-deep snack-bar-container.success-class {
+  background-color:#80c343 !important;
+  color:white !important;
+}
+
+::ng-deep snack-bar-container.error-class {
+  background-color:red !important;
+  color:white !important;
+}
+::ng-deep snack-bar-container.warning-class {
+  background-color:rgb(255, 123, 0) !important;
+  color:white !important;
+}
+.mat-card[_ngcontent-c24] {
+  min-height: 470px !important;
+  max-height: 500px !important;
+  padding-top: 0px !important;  
+}
+.sidenav {
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow:auto;
+  transition: 0.5s;
+  padding-top: 6px;
+}
+
+/**User Profiel CSS Start**/
+.profile-userpic img {
+  float: none;
+  margin: 0 auto;
+  /* width: 50%;
+  height: 50%; */
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 50%!important;
+  -moz-border-radius: 50%!important;
+  border-radius: 50%!important;
+}
+
+.img-responsive {
+  display: block;
+  height: auto;
+}
+/**User Profiel CSS Start**/

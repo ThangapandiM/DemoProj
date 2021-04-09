@@ -1,0 +1,131 @@
+<mat-card style="padding-top: 0px !important;">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+        <div fxFlex="20%" fxLayout="column" id="sidenadiv" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px" class="sidenav">
+            <mat-card class="BGGradient">
+                <div fxLayout="row" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+                    <div fxFlex="80%" fxLayout="column" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+                      <h3>Show Results for</h3>
+                    </div>
+                    <div fxFlex="20%" fxLayout="column" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+                      <button mat-icon-button color="primary" (click)="closeNav();" id="closebtn" style="display:none;" matTooltip="Hide">
+                        <mat-icon>backspace</mat-icon>
+                      </button>
+                    </div>
+                  </div>
+                  <div fxLayout="row" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                      <mat-form-field style="padding-top: 5px;padding-left: 10px">
+                        <input matInput type="text" [owlDateTime]="FDate" (blur)="OnFromDateChange()" (ngModelChange)="OnFromDateChange();OnFromDtChangeClear($event)" [owlDateTimeTrigger]="FDate" placeholder="From Date" [(ngModel)]="FromDate">
+                        <!-- (ngModelChange)="OnFromdateChange()" -->
+                        <owl-date-time [pickerMode]="'dialog'" [pickerType]="'calendar'" #FDate></owl-date-time>
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="row" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                        <mat-form-field style="padding-left: 10px">
+                          <input matInput [min]="FromDateValidate"  type="text" [owlDateTime]="TDate" [owlDateTimeTrigger]="TDate" placeholder="To Date" [(ngModel)]="ToDate">
+                          <!-- (ngModelChange)="OnTodateChange()" -->
+                          <owl-date-time [pickerMode]="'dialog'" [pickerType]="'calendar'" #TDate></owl-date-time>
+                        </mat-form-field>
+                        <button mat-icon-button color="primary" (click)="GoSearch();" matTooltip="Search">
+                          <mat-icon>search</mat-icon>
+                        </button>
+                      </div>
+            </mat-card> 
+        </div>
+          <div fxLayout="column" fxFlex="100%" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0px" style="padding-left: 10px;padding-top: 10px;" id="detailgriddiv">
+              <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                  <div fxFlex="5%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                      <button mat-mini-fab color="primary" (click)="openNav();" id="filterbtn" matTooltip="Show Filter">
+                          <mat-icon style="color:white;">list</mat-icon>
+                        </button>
+                    </div>
+                    <div fxFlex="95%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+                        <mat-table #table [dataSource]="datasource"  matSort>
+                            <ng-container matColumnDef="Recorder">
+                                <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header style="max-width: 110px;">
+                                Recorder
+                                </mat-header-cell>
+                                <mat-cell class="mat-cell-TName" *matCellDef="let row" style="max-width: 105px !important;">
+                                  {{row.Recorder}}
+                                </mat-cell>
+                              </ng-container>
+                              <ng-container matColumnDef="RecordDate">
+                                  <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header style="max-width: 70px !important;">
+                                      Date
+                                  </mat-header-cell>
+                                  <mat-cell class="mat-cell-TName" *matCellDef="let row" style="max-width: 70px !important;">
+                                    {{row.RecordDate|date:'yyyy-MM-dd'}}
+                                  </mat-cell>
+                                </ng-container>
+                                <ng-container matColumnDef="ProjectName">
+                                    <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header style="max-width: 160px !important;">
+                                        ProjectName
+                                    </mat-header-cell>
+                                    <mat-cell class="mat-cell-TName" *matCellDef="let row" style="max-width: 160px !important;">
+                                      {{row.ProjectName}}
+                                    </mat-cell>
+                                  </ng-container>
+                                  <ng-container matColumnDef="DeptCode">
+                                      <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header style="max-width:80px !important;">
+                                          DeptCode
+                                      </mat-header-cell>
+                                      <mat-cell class="mat-cell-TName" *matCellDef="let row" style="max-width:70px !important;">
+                                        {{row.DeptCode}}
+                                      </mat-cell>
+                                    </ng-container>
+                                    <ng-container matColumnDef="Subject">
+                                        <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header style="max-width:270px !important;">
+                                            Subject
+                                        </mat-header-cell>
+                                        <mat-cell class="mat-cell-TName" *matCellDef="let row" style="max-width:280px !important;">
+                                          {{row.Subject}}
+                                        </mat-cell>
+                                      </ng-container>
+                                      <ng-container matColumnDef="SystemName">
+                                          <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header style="max-width: 100px;">
+                                              SystemName
+                                          </mat-header-cell>
+                                          <mat-cell class="mat-cell-TName" *matCellDef="let row" style="max-width: 110px;">
+                                            {{row.SystemName}}
+                                          </mat-cell>
+                                        </ng-container>
+                                        <ng-container matColumnDef="TimeSheetType">
+                                            <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header style="max-width:50px !important;">
+                                                Type
+                                            </mat-header-cell>
+                                            <mat-cell class="mat-cell-TName" *matCellDef="let row" style="max-width:50px !important;">
+                                              {{row.TimeSheetType}}
+                                            </mat-cell>
+                                          </ng-container>
+                                          <ng-container matColumnDef="WorkType">
+                                              <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header style="max-width:90px !important;">
+                                                  WorkType
+                                              </mat-header-cell>
+                                              <mat-cell class="mat-cell-TName" *matCellDef="let row" style="max-width:90px !important;">
+                                                {{row.WorkType}}
+                                              </mat-cell>
+                                            </ng-container>
+                                            <ng-container matColumnDef="WorkingHours">
+                                                <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header style="max-width:100px !important;">
+                                                    WorkingHours
+                                                </mat-header-cell>
+                                                <mat-cell class="mat-cell-TName" *matCellDef="let row" style="max-width:70px !important;">
+                                                  {{row.WorkingHours}}
+                                                </mat-cell>
+                                              </ng-container>
+                              <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                              <mat-row *matRowDef="let row; columns: displayedColumns;">
+                              </mat-row>
+                          </mat-table>
+                          <div fxLayout="row" class="mxhght" fxFlex="100%" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+                              <div fxFlex="60%" fxLayout="column"  >
+                          <button mat-button class="btnwdth"  (click)="exportAsXLSX()">Export Excel</button>
+                        </div>
+                        <div fxFlex="60%" fxLayout="column"  >
+                          <mat-paginator [pageSizeOptions]="[5,10,25]" ></mat-paginator>
+                        </div>
+                        </div>
+                    </div>
+              </div>
+          </div>
+    </div>
+</mat-card>

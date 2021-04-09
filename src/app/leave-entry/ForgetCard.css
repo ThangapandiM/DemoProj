@@ -1,0 +1,14 @@
+.Full-Width
+{
+    width: 280px;
+}
+.mat-input-element{
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-size: 13px !important;
+}
+.mat-dialog-title
+{
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    font-size: 20px !important;
+    font-size: bold !important;
+}

@@ -1,0 +1,10 @@
+@import '../node_modules/@angular/material/theming';
+@include mat-core();
+$my-primary: ( 50: #f0f6e4, 100: #daeaba, 200: #c1dc8d, 300: #a8cd5f, 400: #80c343, 500: #83b81a, 600: #7bb117, 700: #70a813, 800: #66a00f, 900: #ffffff, A100: #dfffbe, A200: #c5ff8b, A400: #acff58, A700: #9fff3f, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #000000, 500: #000000, 600: #000000, 700: #000000, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+//the first two are the custom palettes we declared above
+$acer-theme-primary: mat-palette($my-primary, 400);
+$acer-theme-accent: mat-palette($mat-teal, 800);
+//the third, for the warn color, is the predefined material red palette
+$acer-theme-warn: mat-palette($my-primary, 400);
+$acer-theme: mat-light-theme($acer-theme-primary, $acer-theme-accent, $acer-theme-warn);
+@include angular-material-theme($acer-theme);

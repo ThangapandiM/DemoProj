@@ -1,0 +1,28 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+<div class="item item-1" fxFlex="80%" fxFlexOrder="1">
+        <h2>Holiday List of Year {{Year}}</h2>
+</div>
+ <div class="item item-2" fxFlex="20%" fxFlexOrder="2" fxLayoutAlign="flex-end">
+        <button mat-icon-button  color="primary" [mat-dialog-close]="false"><mat-icon>close</mat-icon></button>
+</div>
+</div>
+<div fxLayout="column"fxLayout.xs="column" fxLayoutGap="0px" fxLayoutGap.xs="0px" *ngFor="let list of HolidayList">
+<mat-list> 
+        <div fxLayout="row" fxFlex="100%" fxLayout.xs="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+            <div fxFlex="5%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px" style="padding-left: 10px">
+                <mat-icon style="padding-top:40%">radio_button_checked</mat-icon>
+            </div>
+            <div fxFlex="25%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px" style="padding-left: 10px">
+             <p matLine>{{list.Date}}</p>
+            </div>
+            <div fxFlex="20%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px" style="padding-left: 10px">
+                <p matLine> {{list.Date | date:'EEEE'}} </p>
+            </div>
+
+            <div fxFlex="55%" fxLayout="column" fxLayoutGap="0px" fxLayoutGap.xs="0px" style="padding-left: 10px">
+                <p matLine> {{list.Description}} </p>
+            </div>
+            <mat-divider></mat-divider>
+        </div>
+</mat-list>
+</div>

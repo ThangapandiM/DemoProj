@@ -1,0 +1,80 @@
+<div class="container">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="8px" fxLayoutGap.xs="8px" style="padding-bottom:5px;">
+        <div fxFlex="50%" fxLayout="column" fxLayoutGap="8px" fxLayoutGap.xs="8px">
+            <mat-card style="min-height:378px;  padding-right:0px;">
+                <div fxLayout="row" fxLayout.xs="row" fxLayoutGap="2px" fxLayoutGap.xs="0px">
+                    <div class="item item-1" fxFlex="5%" *ngIf=backbtnflag>
+                        <button mat-icon-button color="primary" (click)="backClicked()" matTooltip="Back">
+                            <mat-icon style="font-size:20px;">arrow_back</mat-icon>
+                        </button>
+                    </div>
+                    <div class="item item-2" fxFlex="60%">
+                        <h3>{{Heading}} - Consolidated Leave </h3>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="20%" fxLayoutAlign="flex-end" *ngIf="Monthvisible" style="align-self:center">
+
+                        <div class="pointer" matTooltip="Previous" (click)="getPrevoiusMonth()"> <i class="material-icons">
+                                arrow_left
+                            </i> </div>
+                        <div style="padding-top:5px;">{{ currentDate | date:'MMMM' }}</div>
+                        <div class="pointer" matTooltip="Next" (click)="getNextMonth()"> <i class="material-icons ">
+                                arrow_right
+                            </i>
+                        </div>
+                    </div>
+                    <div fxLayout="row" fxLayout.xs="column" fxFlex="20%" fxLayoutAlign="flex-end" *ngIf="Yearvisible" style="align-self:center">
+
+                        <div class="pointer" matTooltip="Previous" (click)="getPrevoiusYear()"> <i class="material-icons">
+                                arrow_left
+                            </i> </div>
+                        <div style="padding-top:5px;">{{ SelectedYear }}</div>
+                        <div class="pointer" matTooltip="Next" (click)="getNextYear()"> <i class="material-icons ">
+                                arrow_right
+                            </i>
+                        </div>
+                    </div>
+                    <div class="toggle">
+                        <h4>Month</h4>
+                        <mat-slide-toggle color="primary" [(ngModel)]="ToggleValue" (change)="Togglechange(ToggleValue)" style="padding-left:5px; padding-right:5px;">
+                        </mat-slide-toggle>
+                        <h4>Year</h4>
+                    </div>
+                </div>
+                <div id="YearDonut" *ngIf="Yearvisible"></div>
+                <div id="MonthDonut" *ngIf="Monthvisible"></div>
+            </mat-card>
+        </div>
+        <div fxFlex="50%" fxLayout="column" fxLayoutGap="8px" fxLayoutGap.xs="8px">
+            <mat-card style="min-height:378px;">
+                <calender-dashboard [SelectedEmpCode]='EMPCode' [CurrentYear]='SelectedYear'></calender-dashboard>
+            </mat-card>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="8px" fxLayoutGap.xs="8px">
+        <div fxFlex="50%" fxLayout="column" fxLayoutGap="8px" fxLayoutGap.xs="8px">
+            <mat-card style="min-height:378px; padding-bottom:5px">
+                <h3>Year Wise Leave Trend- {{SelectedYear}}</h3>
+                <div id="TotalLinechart" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px"></div>
+            </mat-card>
+        </div>
+        <div fxFlex="50%" fxLayout="column" fxLayoutGap="8px" fxLayoutGap.xs="8px">
+            <mat-card style="min-height:378px; padding-bottom:5px; ">
+                <div fxLayout="row" fxLayout.xs="row" fxLayoutGap="2px" fxLayoutGap.xs="0px">
+                    <div class="item item-1" fxFlex="50%">
+                        <h3 *ngIf="Holidayvisible">Holiday/Compoff - {{SelectedYear}} </h3>
+                        <h3 *ngIf="Permissionvisible">Permission/Extended - {{SelectedYear}} </h3>
+                    </div>
+                    <div class="Permissiontoggle">
+                        <h4>Permission/Extended</h4>
+                        <mat-slide-toggle color="primary" [(ngModel)]="TogglePermissionValue" (change)="TogglePermissionchange(TogglePermissionValue)" style="padding-left:5px; padding-right:5px;">
+                        </mat-slide-toggle>
+                        <h4>Holiday/Compoff</h4>
+                    </div>
+                </div>
+                <div *ngIf="Holidayvisible" id="Barchart" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px"></div>
+                <div *ngIf="Permissionvisible" id="PermissionLinechart" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px"></div>
+            </mat-card>
+        </div>
+    </div>
+
+</div>

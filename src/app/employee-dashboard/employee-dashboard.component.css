@@ -1,0 +1,25 @@
+.toggle{
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    place-content: stretch flex-end;
+    align-items: center !important;
+    flex-direction: row;
+    display: flex;
+    max-width: 20%;
+    padding-right: 9px;
+}
+
+.Permissiontoggle
+{
+        flex: 1 1 100%;
+        box-sizing: border-box;
+        place-content: stretch flex-end;
+        align-items: center !important;
+        flex-direction: row;
+        display: flex;
+        max-width: 50%;
+       
+}
+.pointer {
+    cursor: pointer;
+}

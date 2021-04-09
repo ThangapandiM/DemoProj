@@ -1,0 +1,128 @@
+import { BrowserModule } from '@angular/platform-browser';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import { NgModule } from '@angular/core';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { HttpModule} from '@angular/http';
+import { Validators, FormBuilder, FormGroup, FormControl} from '@angular/forms';
+import { FormGroupDirective, NgForm } from '@angular/forms';
+
+
+import { AppRoutingModule } from './/app-routing.module';
+
+import { MonthFilterPipe } from '././employee-dashboard/employee-dashboard-pipefilter';
+
+import {FlexLayoutModule } from "@angular/flex-layout";
+
+
+import {ErrorStateMatcher} from '@angular/material/core';
+import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import {MatCardModule} from '@angular/material/card';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatDividerModule} from '@angular/material/divider'; 
+import {MatGridListModule} from '@angular/material/grid-list';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatListModule} from '@angular/material/list';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
+import { AppComponent } from './app.component';
+import { LoginComponent } from './users/login/login.component';
+import { LeaveEntryComponent } from './leave-entry/leave-entry.component';
+import { EmpRegistrationComponent } from './empregistration/empregistration.component';
+import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashboard.component';
+import { AuthenticatedUserComponent } from './authenticated-user/authenticated-user.component';
+import {MasterTabsComponent} from './master-tabs/master-tabs.component';
+import {DetailedGridComponent} from './detailed-grid/detailed-grid.component';
+import {TeamDashboardComponent} from './team-dashboard/team-dashboard.component';
+import { TeamWiseDashboardComponent } from './team-wise-dashboard/team-wise-dashboard.component';
+import { LeaveapprovalComponent } from './leaveapproval/leaveapproval.component';
+import { ContentComponent } from './content/content.component';
+import { DialogOverviewExampleDialog,RejectDialogOverviewExampleDialog} from './leaveapproval/leaveapproval.component';
+
+//import { EDSTimesheetAPI } from '../Services/EDSTimesheetService';
+import { UserService } from './users/user.service';
+import { AuthGuard } from './users/auth-guard.service';
+import { EmployeeRegistrationService } from './empregistration/employeeregistration.service';
+import { LeaveEntryService } from './leave-entry/leave-entry.service';
+import {EMPDetailedGridDetailService} from './detailed-grid/detailed-grid.service';
+import {EmployeeDashboardService} from './employee-dashboard/employee-dashboard.service';
+import { TeamDashboardService } from './team-dashboard/team-dashboard.service';
+import { TeamWiseDashboardService } from './team-wise-dashboard/team-wise-dashboard.service';
+import { LeaveApprovalService  } from './leaveapproval/leaveapproval.service';
+import { MasterTabsService } from './master-tabs/master-tabs.service';
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    LeaveEntryComponent,
+    EmpRegistrationComponent,
+    EmployeeDashboardComponent,
+    AuthenticatedUserComponent,
+    ContentComponent,
+    MasterTabsComponent,
+    DetailedGridComponent,
+    TeamDashboardComponent,
+    TeamWiseDashboardComponent,
+    LeaveapprovalComponent,
+    DialogOverviewExampleDialog,
+    RejectDialogOverviewExampleDialog,
+    MonthFilterPipe
+  ],
+  imports: [
+    AppRoutingModule,
+    BrowserModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    FlexLayoutModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCardModule,
+    MatCheckboxModule,
+    BrowserAnimationsModule,
+    HttpModule,
+    FormsModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTabsModule,
+    MatMenuModule,
+    MatTooltipModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatDividerModule,
+    MatGridListModule,
+    MatDialogModule,
+    MatListModule,
+    MatToolbarModule,
+    MatFormFieldModule
+  ],
+  entryComponents: [ DialogOverviewExampleDialog,RejectDialogOverviewExampleDialog],
+  providers: [
+   // EDSTimesheetAPI,
+    AuthGuard,
+    UserService,
+    EmployeeRegistrationService,
+    LeaveEntryService,
+   EMPDetailedGridDetailService,
+   EmployeeDashboardService,
+    LeaveApprovalService,
+	TeamDashboardService,
+   TeamWiseDashboardService,
+    MasterTabsService
+  ],
+  bootstrap: [AppComponent]
+})
+export class AppModule { 
+  
+}

@@ -1,0 +1,70 @@
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div class="cal-cell-top">
+        <span *ngIf="(day.date|date:'EEEE') == 'Saturday' || (day.date|date:'EEEE') == 'Sunday'" class="WeekendCss">{{ day.date|date:'d' }}</span>
+        <span *ngIf="(day.date|date:'EEEE') != 'Saturday' && (day.date|date:'EEEE') != 'Sunday'" class="WeekdayCss">{{ day.date|date:'d' }}</span>
+        <div *ngFor="let EmployeeLeave of EmployeeCalenderDetails">
+            <span class="PublicHoliday" *ngIf="(day.date|date:'d') == EmployeeLeave.Day 
+                                && (day.date|date:'yyyy') == EmployeeLeave.Year                               
+                                && (day.date|date:'MM') == EmployeeLeave.Month
+                                && EmployeeLeave.IsPublicHoliday=='True'">
+            </span>
+            <span [ngClass]="getCssClass(EmployeeLeave)" *ngIf="(day.date|date:'d') == EmployeeLeave.Day 
+                                && (day.date|date:'yyyy') == EmployeeLeave.Year                                
+                                && (day.date|date:'MM') == EmployeeLeave.Month 
+                                && EmployeeLeave.LeaveType">
+            </span>
+            <span *ngIf="(day.date|date:'d') == EmployeeLeave.Day 
+                                && (day.date|date:'yyyy') == EmployeeLeave.Year                                 
+                                && (day.date|date:'MM') == EmployeeLeave.Month 
+                                && EmployeeLeave.LeaveCount > 0 && EmployeeLeave.LeaveType == ''" class="LeaveCount">
+                                    {{EmployeeLeave.LeaveCount}}
+            </span>
+        </div>
+    </div>
+</ng-template>
+
+<div fxLayout="row" fxLayout.xs="column" style="padding-left: 15px;" fxLayoutAlign fxLayoutGap="0px">
+    <div fxLayout="column" fxLayout.xs="column" fxFlex="30%">
+        <h3>Calendar </h3>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxFlex="70%" fxLayoutAlign="flex-end">
+
+        <div class="pointer" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="activeDayIsOpen = false" matTooltip="Previous"> <i class="material-icons">
+                    arrow_left
+                    </i> </div>
+        <div style="padding-top:5px;">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</div>
+        <div class="pointer" mwlCalendarNextView [view]="view " [(viewDate)]="viewDate " (viewDateChange)="activeDayIsOpen=false " matTooltip="Next"> <i class="material-icons ">
+                            arrow_right
+                            </i> </div>
+
+        <div class="pointer" matTooltip="Holiday List" (click)="openHolidayListDialoque()"> <i class="material-icons ">
+                                mood
+        </i> </div>
+
+    </div>
+</div>
+
+<div [ngSwitch]="view ">
+    <mwl-calendar-month-view *ngSwitchCase=" 'month' " [viewDate]="viewDate" [events]="events " [cellTemplate]="customCellTemplate ">
+    </mwl-calendar-month-view>
+</div>
+<div *ngIf="this.IsEmployee" fxLayout="row " fxLayout.xs="column " style="padding-left: 15px; padding-top:-10px;" fxLayoutAlign fxLayoutGap="0px ">
+    <span class="PublicHoliday "></span>
+    <p class="Padright_P20">Public Holiday</p>
+    <span class="CasualLeave "></span>
+    <p class="Padright_P20">Casual Leave</p>
+    <span class="SickLeave "></span>
+    <p class="Padright_P20">Sick Leave</p>
+    <span class="WeddingLeave "></span>
+    <p class="Padright_P20">Wedding Leave</p>
+</div>
+<div *ngIf="this.IsEmployee" fxLayout="row " fxLayout.xs="column " style="padding-left: 15px; padding-top:-10px; margin-top:-10px;" fxLayoutAlign fxLayoutGap="0px ">
+    <span class="HolidayLeave "></span>
+    <p class="Padright_P20">Holiday Leave</p>
+    <span class="CompOffLeave "></span>
+    <p class="Padright_P20">Comp Off Leave</p>
+    <span class="HolidayWork "></span>
+    <p class="Padright_P20">Holiday Work</p>
+    <span class="WorkFromHome "></span>
+    <p class="Padright_P20">Work From Home</p>
+</div>

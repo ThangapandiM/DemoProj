@@ -1,0 +1,13 @@
+
+.toggle{
+    flex: 1 1 100%;
+    box-sizing: border-box;
+    place-content: stretch flex-end;
+    align-items: center !important;
+    flex-direction: row;
+    display: flex;
+    max-width: 20%;
+}
+.material-icons {
+    font-size: 15px !important;
+    }

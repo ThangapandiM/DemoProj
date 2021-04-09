@@ -1,0 +1,145 @@
+/* .Headerstyle{
+    text-align:left;
+}
+.Leavemainpanel{
+    height: 80vh;
+}
+.Full-Width
+{
+    width:100%;
+}
+mat-card
+{
+    margin-top:10px !important;
+    height:510px !important;
+}
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+.example-margin {
+  margin: 0 10px;
+}
+  p {
+    font-size: 14px !important;
+    margin-top: 0px !important;
+}
+
+   */
+   .LeaveTypeM{
+    background-image: url("/assets/images/Male.png"); 
+    background-size: cover !important;
+    max-width: 5rem !important;
+    max-height: 10rem !important;
+    bottom: 0 !important;
+    left: 2rem !important;
+    top: 0.2rem !important;
+  }
+  .LeaveTypeF{
+    background-image: url("/assets/images/Female.png"); 
+    background-size: cover !important;
+    max-width: 5rem !important;
+    max-height: 10rem !important;
+    bottom: 0 !important;
+    left: 2rem !important;
+    top: 0.2rem !important;
+  }
+  .mat-card-avatar {
+    height: 80px !important;
+    border-radius: 100% !important;
+    flex-shrink: 0 !important;
+    min-width: 5% !important;
+    width: 50% !important;
+  }
+  .Headerstyle{
+    text-align:left;
+}
+.Leavemainpanel{
+    height: 80vh;
+}
+.Full-Width
+{
+    width:100%;
+}
+mat-card
+{
+   max-width: 100%;
+   min-width: 100%;
+}
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+  }
+.example-margin {
+  margin: 0 10px;
+}
+  p {
+    font-size: 14px !important;
+    margin-top: 0px !important;
+}
+.Requiredmessage{
+  color:rgb(199, 5, 5);
+  font-size:12px;
+  font-family: "Trebuchet MS","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif!important; 
+}
+
+.mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12) !important;
+}
+::ng-deep snack-bar-container.success-class {
+  background-color:#80c343 !important;
+  color:white !important;
+}
+
+::ng-deep snack-bar-container.error-class {
+  background-color:red !important;
+  color:white !important;
+  /* color:red !important; */
+}
+::ng-deep snack-bar-container.warning-class {
+  background-color:rgb(255, 123, 0) !important;
+  color:white !important;
+  /* color:rgb(255, 123, 0) !important; */
+}
+.Addressvalidate-panel .mat-dialog-container {
+  overflow: hidden !important;
+  border-radius: 10px!important;
+  padding-top: 2px!important;
+  padding-bottom: 5px!important;
+  padding-right: 0px!important;
+  padding-left: 0px!important;
+ 
+  width: 100%!important;
+}
+
+
+
+/* Author:Krishna;Create date:03.01.18;Description:For File Attach Need */
+.mat-attach-icon {
+  border: 1px solid;
+}
+.mat-attach-label {
+  padding-top: 15px;
+}
+
+
+/* Profile Image */
+.profile-userpic img {
+  float: none;
+  margin: 0 auto;
+  /* width: 50%;
+  height: 50%; */
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 50%!important;
+  -moz-border-radius: 50%!important;
+  border-radius: 50%!important;
+}
+
+.img-responsive {
+  display: block;
+  height: auto;
+}
+/* Profile Image */

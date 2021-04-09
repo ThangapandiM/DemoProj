@@ -1,0 +1,39 @@
+.sidenav {
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow:auto;
+    transition: 0.5s;
+    padding-top: 6px;
+}
+.mat-table{
+    max-height: 500px !important;
+    overflow: auto;
+   
+}
+.mat-header-cell {
+    font-size: 14px;
+    font-weight: bold !important;
+}
+.mat-cell{
+    font-size: 12px;
+    
+}
+.mat-header-row {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+.mat-row{
+    padding-left: 5px !important;
+}
+.btnwdth{
+    width: 101px;
+    color: white;
+    background-color: #80c343;
+    margin-top: 5px !important;
+}
+.mxhght{
+    max-height:5% !important;
+}

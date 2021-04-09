@@ -1,0 +1,113 @@
+.Empregmainpanel{
+    height: 80vh;
+}
+.Full-Width
+{
+    width:90%;
+    padding-right: 20px;
+}
+.mat-card-header-text{
+    width: auto !important;
+    margin-right: 0px !important;;
+    margin-left: 0px !important;;
+  }
+  .mat-card-header-text {
+    margin: 0;
+    width: 80px !important;
+    text-align:start !important;
+    /* padding-left: 8px !important;  */
+     margin-top: 10px !important;
+  }
+  mat-card{
+    border-radius: 30px !important;
+    border: 1px solid !important;
+    border-color: #bdbdbd !important;
+  }
+  
+  mat-divider 
+  {
+     margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    position: relative !important;
+  }
+  .mat-card-avatar {
+    height: 80px !important;
+    border-radius: 30% !important;
+    flex-shrink: 0 !important;
+  }
+  .LeaveTypeM{
+    background-image: url("/assets/images/Male.png"); 
+    background-size: cover !important;
+    max-width: 5rem !important;
+    max-height: 10rem !important;
+    /* position: absolute !important; */
+    width: -webkit-fill-available !important; 
+    bottom: 0 !important;
+    left: 2rem !important;
+    top: 0.2rem !important;
+  
+  }
+  .LeaveTypeF{
+    background-image: url("/assets/images/Female.png"); 
+    background-size: cover !important;
+    max-width: 5rem !important;
+    max-height: 10rem !important;
+    /* position: absolute !important; */
+    width: -webkit-fill-available !important; 
+    bottom: 0 !important;
+    left: 2rem !important;
+    top: 0.2rem !important;
+  
+  }
+  .container-login100-form-btn {
+    display: -webkit-box !important;
+    display: -webkit-flex !important;
+    display: -moz-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    
+}
+.mat-raised-button
+{
+  color: white !important;
+  width: 202px !important;
+  border-radius: 10px !important;
+}
+::ng-deep snack-bar-container.success-class {
+  background-color:#80c343 !important;
+  color:white !important;
+}
+
+::ng-deep snack-bar-container.error-class {
+  background-color:red !important;
+  color:white !important;
+}
+::ng-deep snack-bar-container.warning-class {
+  background-color:rgb(255, 123, 0) !important;
+  color:white !important;
+}
+
+
+.profile-userpic img {
+  float: none;
+  margin: 0 auto;
+  /* width: 50%;
+  height: 50%; */
+  width: 100%;
+  height: 100%;
+  -webkit-border-radius: 50%!important;
+  -moz-border-radius: 50%!important;
+  border-radius: 50%!important;
+}
+
+.img-responsive {
+  display: block;
+  height: auto;
+}
+/*
+[hidden] {
+  display: none !important;
+}
+*/

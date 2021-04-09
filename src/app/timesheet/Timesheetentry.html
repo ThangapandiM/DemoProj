@@ -1,0 +1,197 @@
+<ng-template #customCellTemplate let-day="day" let-locale="locale">
+    <div class="cal-cell-top" (click)="Selecteddate($event,day.date)">
+        <span *ngIf="(day.date|date:'EEEE') == 'Saturday' || (day.date|date:'EEEE') == 'Sunday'"
+            class="WeekendCss">{{ day.date|date:'d' }}</span>
+        <span *ngIf="(day.date|date:'EEEE') != 'Saturday' && (day.date|date:'EEEE') != 'Sunday'"
+            class="WeekdayCss">{{ day.date|date:'d' }}</span>
+    </div>
+</ng-template>
+<div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px">
+    <div fxLayout="Column" fxFlex="30%" fxLayoutGap="10px" class="mxhght490">
+            <div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px" class="mrgnlt10"></div>
+            <div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px" class="mrgnlt10"></div>
+            <div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px">
+                <div fxLayout="column" fxFlex="65%">
+                        <div fxLayout="row" fxFlex="100%">
+                            <span class="mrgntop5 margnlft5 fontclr">Calendar</span>
+                        </div>
+                    </div>
+                    <div fxLayout="column" fxFlex="35%">
+                            <div fxLayout="row" fxFlex="100%">
+                                    <div class="cursor" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+                                        (viewDateChange)="activeDayIsOpen = false" matTooltip="Previous"> <i class="material-icons">
+                                            arrow_left
+                                        </i> </div>
+                                    <div style="padding-top:5px;">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</div>
+                                    <div class="cursor" mwlCalendarNextView [view]="view " [(viewDate)]="viewDate "
+                                        (viewDateChange)="activeDayIsOpen=false " matTooltip="Next"> <i class="material-icons ">
+                                            arrow_right
+                                        </i> </div>
+                                </div>
+                        </div>
+        </div>
+        <div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px" class="mrgnlt10">
+                <div fxLayout="row" fxFlex="100%" >
+                        <div [ngSwitch]="view ">
+                            <mwl-calendar-month-view *ngSwitchCase=" 'month' " [viewDate]="viewDate" [events]="events"
+                                [cellTemplate]="customCellTemplate" >
+                            </mwl-calendar-month-view>
+                        </div>
+                    </div>
+        </div>
+        <div fxLayout="row" fxFlex="100%" class="margtop20">
+            <div fxLayout="column" fxFlex="20%" style="margin-left:10px !important">
+                <div fxLayout="row" style="max-height: 30px !important;" fxFlex="100%">
+                    <span class="CasualLeave"></span>
+                    <p class="Padlft_P20">Completed</p>
+                </div>
+            </div>
+            <div fxLayout="column" fxFlex="20%" style="margin-left:10px !important">
+                <div fxLayout="row" style="max-height: 30px !important;" fxFlex="100%">
+                    <span class="SickLeave"></span>
+                    <p class="Padlft_P20">Invalid</p>
+                </div>
+            </div>
+</div>
+        
+            <div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px" class="mrgnlt10">
+                    <span class="fntwght">Total  hours:</span>
+                    <p class="Padlft_P20 mrgtop0 fntwght" >{{Totalhours}}
+                    </p>
+            </div>
+                <div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px" class="mrgnlt10">
+                        <span class="fntwght">Total Working hours:</span>
+                        <p class="Padlft_P20 mrgtop0 fntwght" >{{WorkingHours}}
+                        </p>
+                </div>
+                <div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px" class="mrgnlt10">
+                        <span class="fntwght">Total Break hours:</span>
+                        <p class="Padlft_P20 mrgtop0 fntwght" >{{WorkingHours}}
+                        </p>
+                </div>
+            
+                
+    </div>
+    <div fxLayout="Column" fxFlex="70%" fxLayoutGap="10px">
+        
+            <div fxLayout="row" fxFlex="100%" class="bgcolor" fxLayoutGap="10px" class="mrgnlt10 mrgtop10">   
+        <mat-table #table [dataSource]="datasource" style="width:100%;" >
+                    <ng-container matColumnDef="savedRcd">
+                            <mat-header-cell class="mat-header-TName" style="max-width:16px;"   *matHeaderCellDef mat-sort-header>
+                            </mat-header-cell>
+                            <mat-cell class="mat-cell-TName" *matCellDef="let row"  color="primary" style="max-width: 29px !important;">
+                                    <mat-icon color="primary" class="iconsize12"  style="padding-top: 8px;"   *ngIf="row.IsEditable==false&&row.Status=='Work'" >
+                                        done_outline
+                                           </mat-icon>
+                            </mat-cell>
+                        </ng-container>
+                <ng-container matColumnDef="InTime">
+                    <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header class="maxwdth75">
+                        From
+                    </mat-header-cell>
+                    <mat-cell class="mat-cell-TName" *matCellDef="let row" style="max-width: 70px !important;">
+                        {{row.InTime|date:'h:mm a'}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="OutTime">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: unset;
+                                padding-left: 10px;max-width: 66px;">
+                        To
+                    </mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i = index;" style="max-width: 75px !important;">
+                        <div class="form-group">
+                            <mat-form-field class="width txt_align">
+                                <input required type="text" matInput #userName="ngModel" class="form-control"
+                                    name="OutTime-{{i}}" [ngModel]="row.OutTime|date:'h:mm a'"
+                                    [disabled]="row.Status=='Break'||row.Status=='Permissions'||!row.editpermission||!row.IsEditable"
+                                    (change)="onchange(row,i,userName,$events)" id="AOutTime{{i}}">
+                            </mat-form-field>
+                        </div>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="Status">
+                    <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header style="max-width: 95px !important;">
+                        Type
+                    </mat-header-cell>
+                    <mat-cell class="mat-cell-TName" *matCellDef="let row" style="max-width:89px !important;">
+                        {{row.Status}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="ProjectDescription">
+                    <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header style="min-width: 180px !important;">
+                        Project
+                    </mat-header-cell>
+                    <mat-cell class="mat-cell-TName" *matCellDef="let row" style="min-width: 200px !important;">
+                        {{row.ProjectDescription}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="WorkModule">
+                    <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header >
+                        Module
+                    </mat-header-cell>
+                    <mat-cell class="mat-cell-TName" *matCellDef="let row" style="min-width: 100px !important;">
+                        {{row.WorkModule}}
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="TrackerNo">
+                        <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header >
+                            Tracker
+                        </mat-header-cell>
+                        <mat-cell class="mat-cell-TName" *matCellDef="let row" >
+                            {{row.TrackerNo}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Activity">
+                        <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header >
+                            Activity
+                        </mat-header-cell>
+                        <mat-cell class="mat-cell-TName" *matCellDef="let row" style="min-width: 110px !important;">
+                            {{row.Activity}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Region">
+                        <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header class="maxwdth45">
+                            Region
+                        </mat-header-cell>
+                        <mat-cell class="mat-cell-TName" *matCellDef="let row" style="max-width: 71px !important;">
+                            {{row.Region}}
+                        </mat-cell>
+                    </ng-container>
+                    <ng-container matColumnDef="Editbutton">
+                        <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header style="max-width: 39px !important;"> 
+                        </mat-header-cell>
+                        <mat-cell class="mat-cell-TName" *matCellDef="let row;let i = index;" style="max-width: 50px !important;">
+                                <button mat-icon-button aria-label="Example icon-button with a heart icon" 
+                                (click)="openentrydailog($event,i,row)" *ngIf="row.IsEditable==false&&row.Status=='Work'||row.IsEditable&&row.editpermission&&row.Status!='Break'">
+                                        <mat-icon color="primary" class="iconsize" matTooltip="Edit">
+                                            touch_app
+                                        </mat-icon>
+                                      </button>
+                        </mat-cell>
+                    </ng-container>
+                <ng-container matColumnDef="copy">
+                    <mat-header-cell class="mat-header-TName" *matHeaderCellDef mat-sort-header>
+                    </mat-header-cell>
+                    <mat-cell class="mat-cell-TName" *matCellDef="let row:let i=index;" style="max-width: 50px !important;">
+                            <button mat-icon-button aria-label="Example icon-button with a heart icon" [disabled]="row.maticon !='description'&& row.maticon !='file_copy'" *ngIf="row.Status!='Break' && row.maticon!=''  " 
+                            matTooltip="{{row.tooltipcopy}}" (click)="row.maticon=='description'?Copyevent(row):pasteevent(row,i)" >
+                                    <mat-icon color="primary" class="iconsize" >
+                                        {{row.maticon}}
+                                    </mat-icon>
+                                  </button>
+                    </mat-cell>
+                </ng-container>
+                <mat-header-row *matHeaderRowDef="displayedColumns" class="pdgryt0"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;let i = index;"
+                    [ngStyle]="row.Status=='Break'?{'background-color':'rgb(251, 251, 251)'} : {'background-color': 'white'}"
+                    (click)="row.Status!='Break'&& row.editpermission && Assignselectedtime(row)"  style="padding-right: 5px !important;">
+                </mat-row>
+            </mat-table>
+            </div>
+            <div fxLayout="row" fxFlex="95%" >
+                    <mat-paginator [pageSizeOptions]="[10,25]" ></mat-paginator>
+                    </div>
+        </div>
+        
+
+</div>

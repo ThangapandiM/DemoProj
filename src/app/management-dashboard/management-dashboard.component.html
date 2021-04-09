@@ -1,0 +1,133 @@
+<div class="container">
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="8px" fxLayoutGap.xs="8px" style="padding-bottom:5px;">
+        <div fxFlex="50%" fxLayout="column" fxLayoutGap="8px" fxLayoutGap.xs="8px">
+            <mat-card style="min-height:88.5%;">
+                <div fxLayout="row" fxLayout.xs="row" fxLayoutGap="2px" fxLayoutGap.xs="0px">
+                    <div class="item item-2" fxFlex="65%">
+                        <h3>Service ODC - Consolidated Leave </h3>
+                    </div>
+                    <div class="item item-3" fxFlex="5%" *ngIf="Yearvisible">
+                        <button mat-icon-button (click)="getPrevoiusYear()" matTooltip="Previous">
+                            <mat-icon>arrow_left</mat-icon>
+                        </button>
+                    </div>
+                    <div class="item item-3" fxFlex="5%" *ngIf="Monthvisible">
+                        <button mat-icon-button (click)="getPrevoiusMonth()" matTooltip="Previous">
+                            <mat-icon>arrow_left</mat-icon>
+                        </button>
+                    </div>
+                    <div class="item item-4" fxFlex="4%" fxLayoutGap="0px" sytle="color: black !important;" *ngIf="Yearvisible">
+                        <h4> {{ SelectedYear }}</h4>
+                    </div>
+                    <div class="item item-4" fxLayoutGap="0px" sytle="color: black !important;min-width:4% max-width:8%" *ngIf="Monthvisible">
+                        <h4> {{ currentDate | date:'MMMM' }}</h4>
+                    </div>
+                    <div class="item item-5" fxFlex="5%" *ngIf="Yearvisible">
+                        <button mat-icon-button (click)="getNextYear()" matTooltip="Next">
+                            <mat-icon>arrow_right</mat-icon>
+                        </button>
+                    </div>
+                    <div class="item item-5" fxFlex="5%" *ngIf="Monthvisible">
+                        <button mat-icon-button (click)="getNextMonth()" matTooltip="Next">
+                            <mat-icon>arrow_right</mat-icon>
+                        </button>
+                    </div>
+                    <div class="toggle">
+                        <h4>Month</h4>
+                        <mat-slide-toggle [(ngModel)]="ToggleValue" color="primary" (change)="Togglechange(ToggleValue)" style="padding-left:5px; padding-right:5px;">
+                        </mat-slide-toggle>
+                        <h4>Year</h4>
+                    </div>
+                </div>
+                <div id="YearDonut" *ngIf="Yearvisible"></div>
+                <div id="MonthDonut" *ngIf="Monthvisible"></div>
+            </mat-card>
+        </div>
+        <div fxFlex="50%" fxLayout="column" fxLayoutGap="8px" fxLayoutGap.xs="8px">
+            <mat-card style="min-height:88.5%">
+                <calender-dashboard [SelectedEmpCode]='0'></calender-dashboard>
+            </mat-card>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="8px" fxLayoutGap.xs="8px">
+        <div fxFlex="50%" fxLayout="column" fxLayoutGap="8px" fxLayoutGap.xs="10px">
+            <mat-card style="min-height:390px; padding-bottom:0px">
+                <h3>Year-wise Leave Trend -{{SelectedYear}}</h3>
+                <div id="TotalLinechart" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="0px" fxLayoutGap.xs="0px"></div>
+            </mat-card>
+        </div>
+        <div fxFlex="50%" fxLayout="column" fxLayoutGap="10px" fxLayoutGap.xs="10px">
+            <mat-card style="min-height:390px; padding-bottom:0px">
+                <h3>To Do</h3>
+                <div class="example-container mat-elevation-z8">
+                    <mat-table #OpenLeaveDatatable [dataSource]="OpenLeaveData">
+                        <!-- Team Name Column -->
+                        <ng-container matColumnDef="TeamName">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> Team
+                                <br/> Employee
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.TeamName}}
+                                <br/> {{row.EMPName}}
+                            </mat-cell>
+                        </ng-container>
+
+                        <!-- Date From Column -->
+                        <ng-container matColumnDef="DFrom">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Date From / To</mat-header-cell>
+                            <mat-cell style="width:100px !important" *matCellDef="let row"> {{row.LeaveFromDate }}
+                                <br/> {{row.LeaveToDate}}
+                            </mat-cell>
+
+                        </ng-container>
+                        <ng-container matColumnDef="MonthCount">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> {{MonthName}} <br/> Availed
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.LeaveTakenThisMonth}} </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Yearcount">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header> YTD
+                                <br/> Availed
+                            </mat-header-cell>
+                            <mat-cell *matCellDef="let row"> {{row.LeaveTakenThisYear}} </mat-cell>
+                        </ng-container>
+                        <!-- Direct Approval/Rejection -->
+                        <ng-container matColumnDef="LApproval">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Approve</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <button mat-icon-button (click)="ApproveLeave(row)" matTooltip="Approve">
+                                <mat-icon color="primary">done</mat-icon>
+                            </button>
+                            </mat-cell>
+                        </ng-container>
+
+                        <ng-container matColumnDef="LRejection">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Reject</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <button mat-icon-button (click)="RejectLeave(row)" matTooltip="Reject">
+                                <mat-icon style="color: red">close</mat-icon>
+                            </button>
+                            </mat-cell>
+                        </ng-container>
+                        <!-- EDit Column -->
+                        <ng-container matColumnDef="OpenLApproval">
+                            <mat-header-cell *matHeaderCellDef mat-sort-header>Details</mat-header-cell>
+                            <mat-cell *matCellDef="let row">
+                                <button mat-icon-button (click)="openLeaveApproval(row)" matTooltip="Go to Approval">
+                                <mat-icon>keyboard_arrow_right</mat-icon>
+                            </button>
+                            </mat-cell>
+                        </ng-container>
+                        <mat-header-row *matHeaderRowDef="OpenLeaveColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: OpenLeaveColumns;">
+                        </mat-row>
+                    </mat-table>
+                    <mat-paginator #openpaginator [pageSizeOptions]="[5]"></mat-paginator>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+
+
+</div>

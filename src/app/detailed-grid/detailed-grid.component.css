@@ -1,0 +1,171 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+  }
+  
+  .example-header {
+    min-height: 64px;
+    padding: 5px 5px 0;
+  }
+  
+  .mat-form-field {
+     width: 80%;
+  }
+  .mat-header-row{
+    position: sticky !important;
+  }
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
+  
+mat-card
+{
+    min-height:470px !important;
+    max-height:500px !important;
+    padding-top: 0px !important;
+}
+.sidenav {
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow:auto;
+    transition: 0.5s;
+    padding-top: 6px;
+}
+.mat-cell {
+  font-size: 12px !important;
+}
+.mat-header-cell {
+  font-size: 14px;
+  font-weight: bold !important;
+}
+
+.mat-card[_ngcontent-c24] {
+  min-height: 470px !important;
+  max-height: 500px !important;
+  padding-top: 0px !important;  
+}
+/* .BGGradient{
+  background: linear-gradient(to right, #66bb6a 0%, #a5d6a7 100%) !important;
+} */
+::ng-deep snack-bar-container.success-class {
+  background-color:#80c343 !important;
+  color:white !important;
+}
+
+::ng-deep snack-bar-container.error-class {
+  background-color:red !important;
+  color:white !important;
+  
+}
+::ng-deep snack-bar-container.warning-class {
+  background-color:rgb(255, 123, 0) !important;
+  color:white !important;
+}
+
+/* Grid Column Alignment CSS Start */
+.mat-header-TName {
+  min-width:14% !important;
+}
+.mat-header-DFrom {
+  min-width:12% !important;
+}
+
+
+
+.mat-header-LType {
+  min-width:14% !important;
+}
+.mat-header-LveType {
+  min-width:10% !important
+}
+.mat-header-LDays {
+  min-width:5% !important
+}
+.mat-header-LHours {
+  min-width:5% !important
+}
+.mat-header-LReason {
+  min-width:19% !important;
+}
+.mat-header-LApprovedBy {
+  min-width:15% !important;
+}
+.mat-header-TotalYear {
+  min-width:8% !important;
+}
+
+.mat-header-LStatus {
+  min-width:8% !important;
+}
+.mat-header-LDelete {
+  text-align: center !important;
+  min-width:6% !important
+}
+/*  */
+
+
+.mat-cell-TName {
+  min-width:14% !important;
+}
+.mat-cell-DFrom {
+  min-width:12% !important;
+}
+.mat-cell-LType {
+  min-width:14% !important;
+  text-align: left !important;
+}
+.mat-cell-LveType {
+  min-width:10% !important
+}
+.mat-cell-LDays {
+  min-width:5% !important
+}
+.mat-cell-LHours {
+  min-width:5% !important
+}
+.mat-cell-LReason {
+  min-width:19% !important;
+}
+.mat-cell-LApprovedBy {
+  min-width: 15% !important;
+  padding-left: 10px !important; /* need to check */
+}
+.mat-cell-TotalYear {
+  min-width:8% !important;
+  text-align: left !important;
+}
+.mat-cell-LStatus {
+  min-width:8% !important;
+}
+.mat-cell-LDelete {
+  text-align: center !important;
+  min-width:6% !important
+}
+.mat-header-span-leavetype{
+  min-width: 70% !important;
+}
+
+.mat-header-span-days{
+  min-width: 15% !important;
+}
+.mat-header-span-hrs{
+  min-width: 15% !important;
+}
+
+
+.mat-cell-span-leavetype{
+  min-width: 70% !important;
+}
+
+.mat-cell-span-days{
+  min-width: 15% !important;
+}
+.mat-cell-span-hrs{
+  min-width: 15% !important;
+}
+/* Grid Column Alignment CSS End */

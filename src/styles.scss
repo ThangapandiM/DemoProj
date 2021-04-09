@@ -1,0 +1,259 @@
+/* You can add global styles to this file, and also import other style files
+*/
+
+@import '~@angular/material/theming';
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+@import './Acer_theme.scss';
+@include mat-core();
+
+.acer-theme
+{
+    @include angular-material-theme($acer-theme);
+    @include mat-button-theme($acer-theme);
+    @include mat-checkbox-theme($acer-theme);
+}
+
+body {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-bottom: 8px;
+    margin-right: 0px;
+    background-color: #fafafa;
+}
+
+.tab-group {
+    border: 0px!important;
+}
+
+.spinner1 {
+    top: 360px !important;
+    left: 645px !important;
+}
+.mat-tab-label
+{
+    min-width:110px !important;
+    padding:0px,5px !important;
+}
+.mat-card-header-text {
+    margin: 0 8px !important;
+    text-align: end !important;
+}
+
+.mat-snack-bar-container {
+    margin: 157px !important;
+}
+.mat-checkbox-inner-container
+{
+  height: 16px !important;
+  width: 16px !important;
+}
+
+.c3 svg ,.mat-slide-toggle-content{
+    font-family: "Trebuchet MS","Roboto Slab","Helvetica Neue",Helvetica,Arial,sans-serif!important; 
+}
+
+/// New Style Added -- Barani 
+mat-card,
+mat-list,
+mat-list-item,
+tab-group,
+mat-tab-group,
+mat-tab,
+mat-expansion-panel,
+mat-panel-title,
+span,
+button,
+.mat-card,
+.mat-form-field,
+.mat-toolbar,
+.mat-toolbar h1,
+.mat-toolbar h2,
+.mat-toolbar h3,
+.mat-toolbar h4,
+.mat-toolbar h5,
+.mat-toolbar h6,
+.mat-tab-label,
+.mat-tab-link,
+.mat-option-text,
+.mat-checkbox,
+.mat-cell,
+.mat-header-cell {
+      font-family:"Trebuchet MS","Roboto Slab","Helvetica Neue","Helvetica","Arial","sans-serif" !important;
+}
+
+.mat-card-header .mat-card-title  {
+    font-size: 14px;
+    font-size: bold;
+}
+
+.mat-list .mat-list-item .mat-list-item-content,
+.mat-list .mat-list-option .mat-list-item-content,
+.mat-nav-list .mat-list-item .mat-list-item-content,
+.mat-nav-list .mat-list-option .mat-list-item-content,
+.mat-selection-list .mat-list-item .mat-list-item-content,
+.mat-selection-list .mat-list-option .mat-list-item-content,
+.mat-option-text,
+.mat-card-subtitle,
+.mat-card-content,
+.mat-input-element {
+    font-size: 12px;
+}
+
+.mat-toolbar.mat-primary,
+.mat-tab-label,
+.mat-tab-link {
+    font-size: 14px !important;
+}
+
+.mat-cell {
+    font-size: 10px;
+}
+
+.mat-header-cell {
+    font-size: 10px;
+    font-weight: bold !important;
+}
+.acer-theme .mat-expansion-panel-header-title
+{
+    color:#80c343 !important;
+    font-size: 14px;
+    font-weight: bold !important;
+}
+
+.mat-checkbox-layout {
+    font-size: 12px !important;
+}
+
+.c3-legend-item {
+    font-size: 11px !important;
+}
+
+.c3-chart-arcs-title {
+    font-size: 20px !important;
+    font-weight: bold !important;
+}
+.acer-theme h3 {
+    color:#80c343 !important;
+  }
+  .acer-theme h2{
+    color:#80c343 !important;
+  }
+  .acer-theme .mat-card-header-text{
+    color:#80c343 !important;
+  }
+//   .acer-theme .mat-checkbox-label{
+//     color:#80c343 !important;
+//   }
+ 
+.mat-list-item-content
+{
+  overflow: auto !important;
+}
+.mat-tooltip
+{
+    font-size: 13px !important;
+}
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+/* Track */
+// ::-webkit-scrollbar-track {
+//     // box-shadow: inset 0 0 5px grey; 
+//     // border-radius: 10px;
+// }
+ 
+/* Handle */
+// ::-webkit-scrollbar-thumb {
+//    // background:grey;  
+//    // border-radius: 10px;
+// }
+
+/* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//     background: grey;  
+// }
+.light-theme .mat-header-cell
+{
+    color:#bf360c !important;
+}
+.acer-theme .mat-header-cell
+{
+    //color:#6d7067 !important;
+    color: white !important;
+}
+.acer-theme .mat-header-row
+{   
+    //background:-webkit-linear-gradient(right,#a5d6a7,#66bb6a) !important;
+ //   background: linear-gradient(to right, #66bb6a 0%, #afceb0 100%) !important;
+ background:  #66bb6a ;
+    min-height: 40px !important;
+}
+.mat-expansion-panel-header
+{
+
+    min-height: 35px !important;
+    max-height: 35px !important;
+}
+
+.mat-card:not([class*=mat-elevation-z]) {
+    box-shadow: 0 0px 0px 0px rgba(0,0,0,.2), 0 0px 0px 0 rgba(0,0,0,.14), 0 0px 0px 0 rgba(0,0,0,.12) !important; 
+}
+.cal-month-view .cal-header {
+    text-align: center;
+    font-weight: bold;
+    font-size: 10px;
+}
+.cal-month-view .cal-day-cell {
+    min-height: 20px !important;
+    max-height: 80px !important; }
+    .cal-month-view .cal-cell-top {
+        min-height: 10px !important;
+    }
+.mat-grid-tile .mat-figure {
+        align-items: flex-start !important;
+        justify-content: flex-start !important;
+      }
+    .mat-ink-bar
+    {
+        visibility: hidden;
+    }
+    .mat-tab-header
+    {
+        border-bottom:0px !important;
+    }
+    .acer-theme .mat-error {
+        color: red !important;
+    }
+    .acer-theme .mat-form-field-invalid .mat-form-field-ripple {
+        background-color: red !important;
+    }
+    
+    .acer-theme .mat-warn .mat-input-element, .acer-theme .mat-form-field-invalid .mat-input-element {
+        caret-color: red !important;
+    }
+    .acer-theme .mat-form-field-invalid .mat-form-field-label {
+        color:red !important;
+    }
+
+
+
+/**User Profiel CSS Start**/
+.profile-userpic img {
+    float: none;
+    margin: 0 auto;
+    /* width: 50%;
+    height: 50%; */
+    width: 100%;
+    height: 100%;
+    -webkit-border-radius: 50%!important;
+    -moz-border-radius: 50%!important;
+    border-radius: 50%!important;
+  }
+  
+  .img-responsive {
+    display: block;
+    height: auto;
+  }
+  /**User Profiel CSS Start**/

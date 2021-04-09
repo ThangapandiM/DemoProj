@@ -1,0 +1,246 @@
+<form #leaveform="ngForm">
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="8px" style="padding-bottom:5px;"
+        fxLayoutAlign="space-around">
+        <div fxFlex="15%" fxLayout="row"> </div>
+        <div fxLayout="row" fxFlex="50%">
+            <mat-card style="top:10%;border-radius: 50px; margin-top: 10px;">
+                <div fxLayout="row" fxLayoutAlign="space-around" fxLayoutGap="10px" style="margin-bottom: 10px;">
+                    <div fxFlex="70%" fxLayout="column" style="align-self:flex-end;">
+                        <mat-form-field>
+                            <input value={{DefaultEmpName}} matInput placeholder="Employee" aria-label="EMPName"
+                                [matAutocomplete]="auto" (click)="$event.target.select()">
+                            <mat-autocomplete #auto="matAutocomplete" (optionSelected)='EmployeeChange($event.option.value)'>
+                                <mat-option *ngFor="let EName of filteredOptions | async" [value]="EName.EMPName">
+                                    {{EName.EMPName}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="30%" fxLayout="column" fxLayoutAlign="flex-end center">
+                        <div mat-card-avatar class="LeaveType{{Gender}} mat-card-avatar profile-userpic img">
+                            <img mat-card-image [src]="url" *ngIf="url" class="img-responsive">
+                        </div>
+                    </div>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="space-around" style="margin-bottom: 10px;">
+                    <div fxFlex="70%" fxLayout="column" style="align-self:flex-end;">
+                        <mat-form-field>
+                            <mat-select [placeholder]="MethodType" (selectionChange)="LTypeChanges()" [(ngModel)]="LeaveEntry.LeaveTypeID"
+                                #LTypes1="ngModel" name="LTypes1" required>
+                                <mat-option *ngFor="let LType of Leavetypes" [value]="LType.LeaveTypeID">
+                                    {{LType.LeaveType}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="LTypes1.errors && (LTypes1.dirty || LTypes1.touched)" class="mat-error">
+                                <mat-error [hidden]="!LTypes1.errors.required">
+                                    * Required Field
+                                </mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="30%" fxLayout="column" fxLayoutAlign="flex-start center">
+                        <div fxLayout="row" *ngIf="ToggleVisible">
+                            <h4 *ngIf="ToggleFlag">Partial</h4>
+                            <h4 *ngIf="!ToggleFlag">Partial/Extended</h4>
+                            <mat-slide-toggle style="padding-left:5px; padding-right:5px; align-self: center;" [color]="color"
+                                [(ngModel)]="ToggleValue" (change)="Togglechange(ToggleValue)" #Togglebtn="ngModel"
+                                name="togglenam">
+                            </mat-slide-toggle>
+                            <h4>Whole</h4>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="Partialvisible" fxLayout="row" fxLayoutGap="0px" style="margin-bottom: 10px;">
+                    <div fxFlex="80%" fxLayout="column" style="align-self:flex-end;">
+                        <mat-form-field>
+                            <input matInput [max]="maxDate" [owlDateTime]="LeaveFromDate" [owlDateTimeTrigger]="LeaveFromDate"
+                                [(ngModel)]="LeaveEntry.LeaveFromDate" placeholder="From date" (blur)="OndateChange()"
+                                (ngModelChange)="OndateChange();OnFromDtChangeClear()" #Fdate="ngModel" name="Fdatenam"
+                                required>
+                            <owl-date-time [pickerMode]="'dialog'" #LeaveFromDate></owl-date-time>
+                            <mat-error *ngIf="Fdate.errors && (Fdate.dirty || Fdate.touched)" class="mat-error">
+                                <mat-error [hidden]="!Fdate.errors.required">
+                                    * Required Field
+                                </mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div *ngIf="Partialvisible" fxLayoutGap="0px" style="margin-bottom: 10px;">
+                    <div fxFlex="80%" fxLayout="column" style="align-self:flex-end;">
+                        <mat-form-field>
+                            <input matInput [min]="ValidateFromDate" [max]="maxDate" [owlDateTime]="LeaveToDate"
+                                [owlDateTimeTrigger]="LeaveToDate" [(ngModel)]="LeaveEntry.LeaveToDate" placeholder="To date"
+                                [disabled]="LeaveToDisable" #Tdate="ngModel" required name="Tdatenam">
+                            <owl-date-time [pickerMode]="'dialog'" #LeaveToDate></owl-date-time>
+                            <mat-error *ngIf="Tdate.errors && (Tdate.dirty || Tdate.touched)" class="mat-error">
+                                <mat-error [hidden]="!Tdate.errors.required">
+                                    * Required Field
+                                </mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div *ngIf="Wholevisible" fxLayout="row" fxLayoutGap="0px" style="margin-bottom: 10px;">
+                    <div fxFlex="80%" fxLayout="column" style="align-self:flex-end;">
+                        <mat-form-field class="Full-Width">
+                            <input matInput [max]="maxDate" [owlDateTime]="LeaveFromDate" [owlDateTimeTrigger]="LeaveFromDate"
+                                [(ngModel)]="LeaveEntry.LeaveFromDate" placeholder="From date" (ngModelChange)="OndateChange();OnFromDtChangeClear()"
+                                #Fdate="ngModel" name="Fdatenam" required autocomplete="off">
+                            <owl-date-time [pickerMode]="'dialog'" [pickerType]="'calendar'" #LeaveFromDate></owl-date-time>
+                            <mat-error *ngIf="Fdate.errors && (Fdate.dirty || Fdate.touched)" class="mat-error">
+                                <mat-error [hidden]="!Fdate.errors.required">
+                                    * Required Field
+                                </mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div *ngIf="Wholevisible" fxLayoutGap="0px" style="margin-bottom: 10px;">
+                    <div fxFlex="80%" fxLayout="column" style="align-self:flex-end;">
+                        <mat-form-field class="Full-Width">
+                            <input matInput [min]="ValidateFromDate" [max]="maxDate" [owlDateTime]="LeaveToDate"
+                                [owlDateTimeTrigger]="LeaveToDate" [(ngModel)]="LeaveEntry.LeaveToDate" placeholder="To date"
+                                [disabled]="LeaveToDisable" #Tdate="ngModel" name="Tdatenam" (ngModelChange)="OndateChange()"
+                                required autocomplete="off">
+                            <owl-date-time [pickerMode]="'dialog'" [pickerType]="'calendar'" #LeaveToDate></owl-date-time>
+                            <mat-error *ngIf="Tdate.errors && (Tdate.dirty || Tdate.touched)" class="mat-error">
+                                <mat-error [hidden]="!Tdate.errors.required">
+                                    * Required Field
+                                </mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <!-- File Attach Start -->
+                    <!-- <div fxFlex="20%" fxLayout="column" style="align-self:flex-end;text-align: center !important">
+                        <div fxFlex="10%" fxLayout="column" style="padding-left: 15px">
+                            <input type="file" id="avatar" (change)="onFileSelected($event)" style="display:none" #FileInput />
+                            <button class="mat-attach-icon" #loginButton mat-icon-button color="primary" matTooltip="Attach MC" (click)="FileInput.click()"
+                                *ngIf="AttchMcbutton">
+                                <mat-icon class="pad10 attachpopicon" mat-list-icon>attach_file</mat-icon>
+                            </button>
+                        </div>
+                        <div fxFlex="10%" fxLayout="column">
+                            <mat-chip-list *ngIf="filename!=''">
+                                <mat-chip (removed)="clearPop();">
+                                    {{filename}}
+                                    <mat-icon matChipRemove>cancel</mat-icon>
+                                </mat-chip>
+                            </mat-chip-list>
+                        </div>
+                    </div> -->
+                    <!-- File Attach End -->
+                </div>
+                <div fxLayout="row" fxLayoutAlign="center" fxLayoutGap="0px" style="margin-bottom: 10px;">
+                    <div fxFlex="80%" fxLayout="column" style="align-self:flex-end;">
+                        <mat-form-field>
+                            <textarea matInput placeholder="Reason" [(ngModel)]="LeaveEntry.LeaveRemarks" name="Remarks"
+                                #Reasontxt="ngModel" required>
+                            </textarea>
+                            <mat-error *ngIf="Reasontxt.errors && (Reasontxt.dirty || Reasontxt.touched)" class="mat-error">
+                                <mat-error [hidden]="!Reasontxt.errors.required">
+                                    * Required Field
+                                </mat-error>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex="20%" fxLayout="column" style="align-self:flex-end;">
+
+                    </div>
+                </div>
+                <div fxLayoutGap="0px" *ngIf="LeaveEntry.LeaveTypeID=='2' && LeaveEntry.LeaveFromDate!=''" style="margin-bottom: 10px;">
+                    <span>Holiday Work Date :</span>
+                    <mat-checkbox (change)="HolidayChecked(Holidaydetails)" *ngFor="let Holidaydetails of HolidayWorkDetails;"
+                        color="primary" style="padding-left:10px;">
+                        {{Holidaydetails.HolidayWorkDate | date}}
+                        <span *ngIf="Holidaydetails.HalfDayFlag==0">{{Holidaydetails.Description}}</span>
+                        <span *ngIf="Holidaydetails.HalfDayFlag==1">[Half Day]</span>
+                    </mat-checkbox>
+                </div>
+
+
+
+
+
+                <!-- <div fxLayoutGap="0px" *ngIf="" style="margin-bottom: 10px;">
+                        <span>Holiday Work Date :</span>
+                        <mat-checkbox (change)="HolidayChecked(Holidaydetails)" *ngFor="let Holidaydetails of HolidayWorkDetails;"
+                            color="primary" style="padding-left:10px;">
+                            {{Holidaydetails.HolidayWorkDate | date}}
+                            <span *ngIf="Holidaydetails.HalfDayFlag==0">{{Holidaydetails.Description}}</span>
+                            <span *ngIf="Holidaydetails.HalfDayFlag==1">[Half Day]</span>
+                        </mat-checkbox>
+    
+                        
+                    </div> -->
+
+
+
+
+                <div fxLayoutGap="0px" fxLayoutAlign="space-around" *ngIf="LeaveEntry.LeaveTypeID=='2' && LeaveEntry.LeaveFromDate!=''"
+                    style="margin-bottom: 10px;">
+                    <div fxFlex="100%" style="align-self:flex-end;">
+                        <span>Extended Work Dates :</span>
+                        <mat-checkbox (change)="ExtChecked(Extendeddetails)" *ngFor="let Extendeddetails of ExtendedWorkDetails;"
+                            color="primary" style="padding-left:10px;">
+                            {{Extendeddetails.HolidayWorkDate | date}}
+                            <span *ngIf="Extendeddetails.HalfDayFlag==0">{{Extendeddetails.Description}}</span>
+                            <span *ngIf="Extendeddetails.HalfDayFlag==1">[Half Day]</span>
+                        </mat-checkbox>
+                    </div>
+                </div>
+                <!-- <div fxLayoutGap="0px" *ngIf="WorkReason" style="margin-bottom: 10px;">
+                    <span>Holiday Work Details :</span>
+                    <span *ngFor="let Holidaydetails of HolidayWorkDetails;">{{Holidaydetails.WorkReason}}</span>
+                </div> -->
+                <div fxLayoutGap="0px" *ngIf="LeaveEntry.LeaveTypeID=='9' || LeaveEntry.LeaveTypeID=='6'" style="margin-bottom: 10px;">
+                    <span>Work Location :</span>
+                    <mat-radio-group [(ngModel)]="LeaveEntry.WorkLocationID" #WorkLocationID="ngModel" name="LocationRadio"
+                        required>
+                        <mat-radio-button *ngFor="let LocationDetails of WorkLocation;" color="primary" [value]="LocationDetails.LocationID"
+                            style="padding-left:10px;">
+                            {{LocationDetails.LocationType}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="space-around" fxLayoutGap="3px" style="margin-bottom: 10px;">
+                    <!-- File Attach Start -->
+                    <div fxFlex="10%" fxLayout="column" class="mat-attach-label" *ngIf="AttchMcbutton">
+                        <span>Attach MC :</span>
+                    </div>
+                    <div fxFlex="10%" fxLayout="column">
+                        <input type="file" id="avatar" (change)="onFileSelected($event)" style="display:none"
+                            #FileInput />
+                        <button class="mat-attach-icon" #loginButton mat-icon-button color="primary" matTooltip="Attach Medical Certificate"
+                            (click)="FileInput.click()" *ngIf="AttchMcbutton">
+                            <mat-icon class="pad10 attachpopicon" mat-list-icon>attach_file</mat-icon>
+                        </button>
+                    </div>
+                    <div fxFlex="40%" fxLayout="column">
+                        <mat-chip-list *ngIf="filename!=''">
+                            <mat-chip (removed)="clearPop();">
+                                {{filename}}
+                                <mat-icon matChipRemove>cancel</mat-icon>
+                            </mat-chip>
+                        </mat-chip-list>
+                    </div>
+                    <!-- File Attach End -->
+
+
+                    <div fxFlex="40%" fxLayout="column">
+                        <div fxFlex="100%" style="align-self:flex-end;">
+                            <button mat-raised-button color="accent" (click)="clearLeaveEntry();" [disabled]="buttonflg">Clear</button>
+                            <button mat-raised-button color="primary" type="submit" (click)="SaveLeaveDetail();" style="padding-left:10px;color: white"
+                                [disabled]="buttonflg || leaveform.form.invalid ">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+
+            </mat-card>
+        </div>
+        <div fxFlex="15%">
+        </div>
+    </div>
+</form>

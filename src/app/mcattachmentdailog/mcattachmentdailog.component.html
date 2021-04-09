@@ -1,0 +1,20 @@
+<div fxLayout="row" fxLayout.xs="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+    <div class="item item-1" fxFlex="80%" fxFlexOrder="1">
+        <p class="header">Attach Medical Certificate</p>
+    </div>
+     <div class="item item-2" fxFlex="20%" fxFlexOrder="2" fxLayoutAlign="flex-end">
+            <button mat-icon-button  color="primary" (click)="cancel()" ><mat-icon>close</mat-icon></button>
+    </div>
+    </div>
+<div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="start" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+  <p class="message">
+Please Attach Medical Certificate for more than 2 days Sick Leave</p></div>
+<div fxLayout="row" fxflex="100%" fxLayout.xs="column" fxLayoutGap="20px" fxLayoutGap.xs="0px">
+    <div fxLayout="column"  fxflex="50%"fxLayout.xs="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+        <input type="file" id="avatar" style="display:none" (change)="onFileSelected($event)" #FileInput/>
+        <button mat-button class="attanchbutton" (click)="Attachmc()">Attach</button>
+    </div>
+    <div fxLayout="column"  fxflex="50%"fxLayout.xs="column" fxLayoutGap="0px" fxLayoutGap.xs="0px">
+        <button mat-button class="attanchbutton" (click)="cancel()">Cancel</button>
+      </div>
+</div>
